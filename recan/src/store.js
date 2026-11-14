@@ -125,7 +125,77 @@ export function cartTotals(lines) {
 }
 
 // ---------- objednávky ----------
-export const ordersStore = createStore('recan.orders.v1', [], (v) => (Array.isArray(v) ? v : []))
+// Testovacie objednávky, aby administrácia nebola prázdna v žiadnom prehliadači.
+function snapshot(id, createdAt, name, email, pickup, status, lines) {
+  const { rows, subtotal, discount, total, cans } = cartTotals(lines)
+  return {
+    id,
+    createdAt,
+    name,
+    email,
+    pickup,
+    status,
+    test: true,
+    items: rows.map((r) => ({
+      type: r.type,
+      title: r.title,
+      detail: r.detail,
+      qty: r.qty,
+      unit: r.unit,
+      unitOriginal: r.unitOriginal,
+      total: r.total,
+    })),
+    cans,
+    subtotal,
+    discount,
+    total,
+  }
+}
+const one = (slug, qty) => ({ id: `p:${slug}`, type: 'single', slug, qty })
+const pack = (slugs, qty = 1) => ({ id: `b:${slugs.join('+')}`, type: 'bundle', slugs, qty })
+const [N, P, R, D] = ORDER_STATUSES
+
+export const seedOrders = [
+  snapshot('RC-261114-T010', '2026-11-14T16:42:00.000Z', 'Tomáš Horváth', 'tomas.horvath@example.com', '2026-11-18', N, [
+    one('tropical', 2),
+    one('citrus-charge', 1),
+  ]),
+  snapshot('RC-261114-T009', '2026-11-14T09:15:00.000Z', 'Lucia Bieliková', 'lucia.bielikova@example.com', '2026-11-17', N, [
+    pack(['citrus-charge', 'watermelon-lime', 'berry-blast']),
+  ]),
+  snapshot('RC-261113-T008', '2026-11-13T18:03:00.000Z', 'Martin Kováč', 'martin.kovac@example.com', '2026-11-17', P, [
+    one('berry-blast', 6),
+  ]),
+  snapshot('RC-261113-T007', '2026-11-13T11:27:00.000Z', 'Simona Vargová', 'simona.vargova@example.com', '2026-11-16', P, [
+    pack(['citrus-charge', 'watermelon-lime', 'tropical']),
+    one('watermelon-lime', 2),
+  ]),
+  snapshot('RC-261112-T006', '2026-11-12T20:48:00.000Z', 'Peter Novák', 'peter.novak@example.com', '2026-11-15', R, [
+    one('citrus-charge', 4),
+  ]),
+  snapshot('RC-261112-T005', '2026-11-12T07:55:00.000Z', 'Katarína Hudáková', 'katarina.hudakova@example.com', '2026-11-14', R, [
+    pack(['watermelon-lime', 'tropical', 'berry-blast'], 2),
+  ]),
+  snapshot('RC-261110-T004', '2026-11-10T15:10:00.000Z', 'Jakub Mráz', 'jakub.mraz@example.com', '2026-11-12', D, [
+    one('tropical', 3),
+    one('berry-blast', 3),
+  ]),
+  snapshot('RC-261109-T003', '2026-11-09T12:34:00.000Z', 'Eva Lukáčová', 'eva.lukacova@example.com', '2026-11-11', D, [
+    pack(['citrus-charge', 'tropical', 'berry-blast']),
+  ]),
+  snapshot('RC-261107-T002', '2026-11-07T17:21:00.000Z', 'Michal Šimko', 'michal.simko@example.com', '2026-11-10', D, [
+    one('watermelon-lime', 12),
+  ]),
+  snapshot('RC-261105-T001', '2026-11-05T10:02:00.000Z', 'Zuzana Kráľová', 'zuzana.kralova@example.com', '2026-11-07', D, [
+    one('citrus-charge', 1),
+    one('watermelon-lime', 1),
+    one('tropical', 1),
+    one('berry-blast', 1),
+  ]),
+]
+
+export const ordersStore = createStore('recan.orders.v2', seedOrders, (v) => (Array.isArray(v) ? v : seedOrders))
+export const resetOrders = () => ordersStore.set(seedOrders)
 
 export function createOrder({ name, email, pickup }) {
   const { rows, subtotal, discount, total, cans } = cartTotals(cartStore.get())

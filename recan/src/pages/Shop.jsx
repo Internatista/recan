@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useSeo } from '../seo'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { products, bySlug, nutrition, VOLUME, ALLERGENS, STORAGE, pickupPoint, PRICE, COLLECTION, BUNDLE_DISCOUNT_PCT } from '../data'
 import { addSingle, money } from '../store'
@@ -7,6 +8,10 @@ import Gallery from '../components/Gallery'
 import BundleBuilder from '../components/BundleBuilder'
 
 export function Shop() {
+  useSeo({
+    title: 'Obchod – ovocné nápoje s elektrolytmi',
+    description: `Citrus Charge, Watermelon Lime, Tropical a Berry Blast. Ovocné nápoje s elektrolytmi za ${money(PRICE)}, osobný odber zdarma.`,
+  })
   return (
     <>
       <PageHead eyebrow={COLLECTION} title="Obchod">
@@ -29,6 +34,10 @@ export function Shop() {
 }
 
 export function BundlePage() {
+  useSeo({
+    title: 'Trojbalíček so zľavou 10 %',
+    description: 'Namiešaj si trojbalíček z troch rôznych príchutí RE:CAN a ušetri 10 %. Osobný odber zdarma.',
+  })
   return (
     <>
       <PageHead eyebrow={`Trojbalíček · −${BUNDLE_DISCOUNT_PCT} %`} title="Namiešaj si trojbalíček">
@@ -47,13 +56,32 @@ export function Product() {
   const navigate = useNavigate()
   const [qty, setQty] = useState(1)
 
-  useEffect(() => {
-    setQty(1)
-    if (p) document.title = `${p.name} – RE:CAN`
-    return () => {
-      document.title = 'RE:CAN – Good drink. Second life.'
-    }
-  }, [slug, p])
+  useEffect(() => setQty(1), [slug])
+  useSeo(
+    p
+      ? {
+          title: `${p.name} – ${p.flavor}`,
+          description: `${p.name}: ${p.short} Plechovka ${VOLUME} za ${money(PRICE)}, osobný odber zdarma.`,
+          image: p.img,
+          jsonLd: {
+            '@context': 'https://schema.org',
+            '@type': 'Product',
+            name: `RE:CAN ${p.name}`,
+            description: p.description,
+            image: new URL(p.img, window.location.origin).href,
+            brand: { '@type': 'Brand', name: 'RE:CAN' },
+            category: COLLECTION,
+            offers: {
+              '@type': 'Offer',
+              price: (PRICE / 100).toFixed(2),
+              priceCurrency: 'EUR',
+              availability: 'https://schema.org/InStock',
+              url: window.location.href,
+            },
+          },
+        }
+      : { title: 'Produkt sa nenašiel', noindex: true },
+  )
 
   if (!p) return <NotFound title="Tento produkt nemáme" text="V ponuke sú štyri príchute. Nájdeš ich v obchode." />
 

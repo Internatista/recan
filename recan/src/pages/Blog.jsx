@@ -2,9 +2,14 @@ import { Link, useParams } from 'react-router-dom'
 import { useStore, articlesStore, sortedArticles, formatDate } from '../store'
 import { ArticleCard, PageHead, NotFound } from '../components/ui'
 import { Cover } from '../components/Visuals'
+import { useSeo } from '../seo'
 
 export function Blog() {
   const articles = sortedArticles(useStore(articlesStore))
+  useSeo({
+    title: 'Journal – blog o nápojoch, rituáloch a refille',
+    description: 'Články RE:CAN o príbehu značky, každodenných rituáloch a o tom, ako funguje refill plechoviek.',
+  })
   return (
     <>
       <PageHead eyebrow="Journal" title="Čítanie k plechovke">
@@ -33,6 +38,23 @@ export function Blog() {
 export function Article() {
   const { slug } = useParams()
   const a = useStore(articlesStore).find((x) => x.slug === slug)
+  useSeo(
+    a
+      ? {
+          title: a.title,
+          description: a.excerpt,
+          jsonLd: {
+            '@context': 'https://schema.org',
+            '@type': 'BlogPosting',
+            headline: a.title,
+            description: a.excerpt,
+            datePublished: a.date,
+            articleSection: a.category,
+            publisher: { '@type': 'Organization', name: 'RE:CAN' },
+          },
+        }
+      : { title: 'Článok sa nenašiel', noindex: true },
+  )
   if (!a) return <NotFound title="Článok sme nenašli" text="Možno bol presunutý alebo odstránený." />
 
   // Text z editora vykresľujeme ako obyčajný text po odsekoch, nikdy ako HTML.

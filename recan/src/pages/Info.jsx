@@ -2,8 +2,13 @@ import { Link } from 'react-router-dom'
 import { PageHead, Steps, refillSteps } from '../components/ui'
 import { Cover } from '../components/Visuals'
 import { pickupPoint } from '../data'
+import { useSeo } from '../seo'
 
 export function Story() {
+  useSeo({
+    title: 'Príbeh značky',
+    description: 'Ako vznikol RE:CAN, čo znamená názov a prečo stavíme na ovocné chute, aktívny život a plechovky s druhým životom.',
+  })
   return (
     <>
       <PageHead eyebrow="Príbeh značky" title="Prečo RE:CAN">
@@ -55,6 +60,10 @@ export function Story() {
 }
 
 export function Refill() {
+  useSeo({
+    title: 'Refill – vráť plechovku, ďalšie naplnenie so zľavou',
+    description: 'Prines prázdnu plechovku RE:CAN späť. Vyčistíme ju, naplníme, nanovo uzavrieme a ďalší nápoj máš so zľavou.',
+  })
   return (
     <>
       <PageHead eyebrow="Refill" title="Vyber. Vychutnaj. Vráť.">

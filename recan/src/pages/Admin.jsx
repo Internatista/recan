@@ -10,11 +10,12 @@ import {
   deleteArticle,
   resetArticles,
   setOrderStatus,
+  resetOrders,
   formatDate,
   money,
   toast,
 } from '../store'
-import { PageHead } from '../components/ui'
+import { useSeo } from '../seo'
 import { Cover } from '../components/Visuals'
 import { OrderItems } from './Cart'
 
@@ -231,18 +232,46 @@ function Orders() {
       <div className="empty-inline">
         <h2>Žiadne objednávky</h2>
         <p>Nová objednávka sa tu objaví hneď po dokončení nákupu.</p>
-        <Link className="btn" to="/shop">
-          Do obchodu
-        </Link>
+        <div className="empty-actions">
+          <Link className="btn" to="/shop">
+            Do obchodu
+          </Link>
+          <button type="button" className="btn btn-ghost" onClick={resetOrders}>
+            Načítať testovacie objednávky
+          </button>
+        </div>
       </div>
     )
+  const counts = ORDER_STATUSES.map((st) => [st, orders.filter((o) => o.status === st).length])
   return (
+    <>
+      <div className="admin-bar">
+        <ul className="status-summary" aria-label="Počet objednávok podľa stavu">
+          {counts.map(([st, n], i) => (
+            <li key={st} data-status={i}>
+              <b>{n}</b> {st}
+            </li>
+          ))}
+        </ul>
+        <button
+          type="button"
+          className="text-link"
+          onClick={() => {
+            resetOrders()
+            toast('Testovacie objednávky sú obnovené.')
+          }}
+        >
+          Obnoviť testovacie objednávky
+        </button>
+      </div>
     <ul className="order-list">
       {orders.map((o) => (
         <li key={o.id} className="order-card" data-order={o.id}>
           <header>
             <div>
-              <h3>{o.id}</h3>
+              <h3>
+                {o.id} {o.test && <span className="tag tag-ned">test</span>}
+              </h3>
               <p className="muted">
                 Vytvorená{' '}
                 {new Date(o.createdAt).toLocaleString('sk-SK', { dateStyle: 'medium', timeStyle: 'short' })}
@@ -290,24 +319,153 @@ function Orders() {
         </li>
       ))}
     </ul>
+    </>
+  )
+}
+
+// Prihlásenie do administrácie. Overenie prebieha v prehliadači (web nemá backend),
+// heslo je uložené len ako SHA-256 hash a relácia platí do zatvorenia karty.
+const ADMIN_USER = 'admin'
+const ADMIN_HASH = '5f803048e654ca84ee8b1886c4fcebeb2ed04a8e5f47e2c88b6e7242a9ff3c5c'
+const SESSION_KEY = 'recan.admin.session'
+const MAX_ATTEMPTS = 5
+const LOCK_MS = 30000
+
+async function sha256(text) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text))
+  return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('')
+}
+const readSession = () => {
+  try {
+    return sessionStorage.getItem(SESSION_KEY) === ADMIN_USER
+  } catch {
+    return false
+  }
+}
+
+function Login({ onLogin }) {
+  const [user, setUser] = useState('')
+  const [pass, setPass] = useState('')
+  const [error, setError] = useState('')
+  const [busy, setBusy] = useState(false)
+  const [attempts, setAttempts] = useState(0)
+  const [lockedUntil, setLockedUntil] = useState(0)
+
+  const submit = async (e) => {
+    e.preventDefault()
+    if (Date.now() < lockedUntil) {
+      setError(`Príliš veľa pokusov. Skús to znova o ${Math.ceil((lockedUntil - Date.now()) / 1000)} s.`)
+      return
+    }
+    if (!user.trim() || !pass) {
+      setError('Zadaj používateľské meno aj heslo.')
+      return
+    }
+    setBusy(true)
+    let ok = false
+    try {
+      ok = user.trim().toLowerCase() === ADMIN_USER && (await sha256(pass)) === ADMIN_HASH
+    } catch {
+      setError('Prihlásenie vyžaduje zabezpečené pripojenie (https).')
+      setBusy(false)
+      return
+    }
+    setBusy(false)
+    if (ok) {
+      try {
+        sessionStorage.setItem(SESSION_KEY, ADMIN_USER)
+      } catch {
+        /* relácia ostane aspoň v pamäti */
+      }
+      onLogin()
+      return
+    }
+    const n = attempts + 1
+    setPass('')
+    if (n >= MAX_ATTEMPTS) {
+      setAttempts(0)
+      setLockedUntil(Date.now() + LOCK_MS)
+      setError('Príliš veľa nesprávnych pokusov. Prihlásenie je na 30 sekúnd zablokované.')
+    } else {
+      setAttempts(n)
+      setError(`Nesprávne meno alebo heslo. Zostáva pokusov: ${MAX_ATTEMPTS - n}.`)
+    }
+  }
+
+  return (
+    <div className="wrap login-wrap">
+      <form className="form-card login-card" onSubmit={submit} noValidate aria-labelledby="login-title">
+        <p className="eyebrow">RE:CAN</p>
+        <h1 id="login-title">Administrácia</h1>
+        <p className="muted">Prihlás sa, aby si mohol spravovať objednávky a články.</p>
+        <div className={`field ${error ? 'has-error' : ''}`}>
+          <label htmlFor="login-user">Používateľské meno</label>
+          <input id="login-user" autoComplete="username" value={user} onChange={(e) => setUser(e.target.value)} />
+        </div>
+        <div className={`field ${error ? 'has-error' : ''}`}>
+          <label htmlFor="login-pass">Heslo</label>
+          <input
+            id="login-pass"
+            type="password"
+            autoComplete="current-password"
+            value={pass}
+            onChange={(e) => setPass(e.target.value)}
+          />
+        </div>
+        {error && (
+          <p className="error" role="alert">
+            {error}
+          </p>
+        )}
+        <button type="submit" className="btn btn-block" disabled={busy}>
+          {busy ? 'Overujem…' : 'Prihlásiť sa'}
+        </button>
+      </form>
+    </div>
   )
 }
 
 export default function Admin() {
-  const [tab, setTab] = useState('articles')
-  const count = useStore(ordersStore).length
+  const [authed, setAuthed] = useState(readSession)
+  useSeo({ title: 'Administrácia', noindex: true })
+  if (!authed) return <Login onLogin={() => setAuthed(true)} />
+  const logout = () => {
+    try {
+      sessionStorage.removeItem(SESSION_KEY)
+    } catch {
+      /* nič */
+    }
+    setAuthed(false)
+    toast('Bol si odhlásený.')
+  }
+  return <Dashboard onLogout={logout} />
+}
+
+function Dashboard({ onLogout }) {
+  const [tab, setTab] = useState('orders')
+  const orders = useStore(ordersStore)
+  const open = orders.filter((o) => o.status !== ORDER_STATUSES[ORDER_STATUSES.length - 1]).length
   return (
     <>
-      <PageHead eyebrow="RE:CAN" title="Administrácia">
-        Správa článkov a objednávok.
-      </PageHead>
+      <div className="page-head wrap admin-head">
+        <div>
+          <p className="eyebrow">RE:CAN · prihlásený ako admin</p>
+          <h1>Administrácia</h1>
+          <p className="lead">
+            {orders.length} objednávok, z toho {open} nevybavených.
+          </p>
+        </div>
+        <button type="button" className="btn btn-ghost btn-small" onClick={onLogout}>
+          Odhlásiť sa
+        </button>
+      </div>
       <div className="wrap section-tight">
-        <div className="tabs" role="tablist" aria-label="Sekcie editora">
+        <div className="tabs" role="tablist" aria-label="Sekcie administrácie">
+          <button type="button" role="tab" aria-selected={tab === 'orders'} onClick={() => setTab('orders')}>
+            Objednávky ({orders.length})
+          </button>
           <button type="button" role="tab" aria-selected={tab === 'articles'} onClick={() => setTab('articles')}>
             Články
-          </button>
-          <button type="button" role="tab" aria-selected={tab === 'orders'} onClick={() => setTab('orders')}>
-            Objednávky ({count})
           </button>
         </div>
         <div role="tabpanel">{tab === 'articles' ? <Articles /> : <Orders />}</div>

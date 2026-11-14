@@ -2004,3 +2004,52 @@ legend {
 .form-card > h2 {
   margin-bottom: 16px;
 }
+
+.login-wrap {
+  max-width: 440px;
+  padding-block: clamp(32px, 8vw, 88px);
+}
+.login-card h1 {
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+  margin-bottom: 0.2em;
+}
+.login-card .muted {
+  margin-bottom: 20px;
+}
+.admin-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.admin-head .lead {
+  margin: 0;
+}
+.status-summary {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.status-summary li {
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.status-summary li[data-status='0'] {
+  background: #fbd5c8;
+}
+.status-summary li[data-status='1'] {
+  background: #dbe3ff;
+}
+.status-summary li[data-status='2'] {
+  background: #cfe0d3;
+}
+.status-summary li[data-status='3'] {
+  background: #e9e6dc;
+}

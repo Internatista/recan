@@ -3,6 +3,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 import { products, pickupPoint, MAX_QTY, PRICE, BUNDLE_DISCOUNT_PCT } from '../data'
 import { useStore, cartStore, cartTotals, toastStore, dismissToast, addSingle, toast, money, formatDate } from '../store'
 import { Cover } from './Visuals'
+import { useSeo } from '../seo'
 import logoDark from '../assets/logo-dark.png'
 import logoLight from '../assets/logo-light.png'
 
@@ -237,6 +238,7 @@ export function Steps({ items }) {
 }
 
 export function NotFound({ title = 'Túto stránku sme nenašli', text = 'Adresa neexistuje alebo bola zmenená.' }) {
+  useSeo({ title, noindex: true })
   return (
     <>
       <PageHead eyebrow="404" title={title}>

@@ -32,7 +32,9 @@ Pripravené sú `vercel.json` (Vercel) a `public/_redirects` (Netlify).
 
 - Platba prebieha pri osobnom odbere, web platobnú bránu nemá.
 - Dáta (košík, objednávky, články) sa ukladajú do localStorage prehliadača.
-- `/admin` nemá prihlásenie.
+- `/admin` je chránený prihlásením: meno `admin`, heslo `Recan2026!`. Overenie prebieha v prehliadači (heslo je uložené ako SHA-256 hash), relácia platí do zatvorenia karty.
+- Administrácia obsahuje 10 testovacích objednávok v rôznych stavoch; tlačidlo „Obnoviť testovacie objednávky“ ich vráti do pôvodného stavu.
+- SEO: title, description, canonical a Open Graph pre každú stránku, štruktúrované dáta (Product, BlogPosting, Organization), `sitemap.xml` a `robots.txt` sa generujú pri builde z adresy `SITE_URL` alebo produkčnej domény Vercelu.
 
 ## Brand guidelines
 

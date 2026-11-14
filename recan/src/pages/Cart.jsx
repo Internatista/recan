@@ -16,6 +16,7 @@ import {
   toast,
 } from '../store'
 import { PageHead, QtyStepper, NotFound } from '../components/ui'
+import { useSeo } from '../seo'
 
 function EmptyCart({ title = 'Košík je prázdny' }) {
   return (
@@ -65,6 +66,7 @@ function Totals({ t }) {
 export function Cart() {
   const lines = useStore(cartStore)
   const t = cartTotals(lines)
+  useSeo({ title: 'Košík', noindex: true })
   if (!t.rows.length) return <EmptyCart />
 
   return (
@@ -163,6 +165,7 @@ export function Checkout() {
   const lines = useStore(cartStore)
   const t = cartTotals(lines)
   const navigate = useNavigate()
+  useSeo({ title: 'Dokončenie objednávky', noindex: true })
   const [values, setValues] = useState({ name: '', email: '', pickup: '' })
   const [touched, setTouched] = useState({})
   const [submitted, setSubmitted] = useState(false)
@@ -255,6 +258,7 @@ export function OrderItems({ order }) {
 export function OrderConfirmation() {
   const { id } = useParams()
   const order = useStore(ordersStore).find((o) => o.id === id)
+  useSeo({ title: 'Objednávka prijatá', noindex: true })
   if (!order)
     return <NotFound title="Objednávku sme nenašli" text="Skontroluj číslo objednávky alebo pokračuj do obchodu." />
 

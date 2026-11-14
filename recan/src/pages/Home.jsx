@@ -5,6 +5,7 @@ import { useStore, articlesStore, sortedArticles, money } from '../store'
 import { ProductGrid, ArticleCard, Steps, refillSteps } from '../components/ui'
 import { NetArc, Fruit } from '../components/Visuals'
 import BundleBuilder from '../components/BundleBuilder'
+import { useSeo } from '../seo'
 
 export const buySteps = [
   { n: '1', t: 'Vyber si príchute', d: 'Jednotlivo alebo ako trojbalíček. Všetko pridáš do košíka jedným klikom.' },
@@ -16,6 +17,16 @@ export default function Home() {
   const [active, setActive] = useState(0)
   const p = products[active]
   const articles = sortedArticles(useStore(articlesStore)).slice(0, 3)
+  useSeo({
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: 'RE:CAN',
+      slogan: 'Good drink. Second life.',
+      url: window.location.origin,
+      logo: `${window.location.origin}/og.png`,
+    },
+  })
 
   return (
     <>
