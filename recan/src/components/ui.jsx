@@ -80,6 +80,7 @@ export function Footer() {
           <Link to="/shop">Obchod</Link>
           <Link to="/trojbalicek">Trojbalíček</Link>
           <Link to="/cart">Košík</Link>
+          <a href="/app/">Mobilná aplikácia</a>
         </div>
         <div>
           <h2>Značka</h2>

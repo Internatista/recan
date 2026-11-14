@@ -24,6 +24,13 @@ function ScrollManager() {
   return null
 }
 
+function AppRedirect() {
+  useEffect(() => {
+    window.location.replace('/app/')
+  }, [])
+  return null
+}
+
 function App() {
   return (
     <BrowserRouter>
@@ -46,6 +53,7 @@ function App() {
           <Route path="/pribeh" element={<Story />} />
           <Route path="/refill" element={<Refill />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/app" element={<AppRedirect />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

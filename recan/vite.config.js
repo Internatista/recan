@@ -28,6 +28,7 @@ function seoFiles() {
         ['/pribeh', '0.6', 'monthly'],
         ['/refill', '0.6', 'monthly'],
         ['/blog', '0.7', 'weekly'],
+        ['/app/', '0.5', 'monthly'],
         ...articles.map((s) => [`/blog/${s}`, '0.5', 'monthly']),
       ]
       const xml = `<?xml version="1.0" encoding="UTF-8"?>

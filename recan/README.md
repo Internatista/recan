@@ -43,4 +43,4 @@ Nadpisové písmo Boldfat Mighty je platené a v projekte nie je; nahrádza ho T
 
 ## Mobilná aplikácia
 
-`mobile-app/index.html` – samostatný súbor, stačí ho otvoriť v prehliadači na počítači (dvojklik).
+Beží na `/app/` (súbor `public/app/index.html`, kópia v `mobile-app/index.html` sa dá otvoriť aj dvojklikom). Na počítači je v rámčeku iPhone 17 (402 × 874 bodov) zväčšenom na výšku okna, na mobile zaberie celú obrazovku. Košík a refill karta sa ukladajú do prehliadača.
