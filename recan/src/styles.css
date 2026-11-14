@@ -1983,3 +1983,24 @@ legend {
 .net-arc {
   max-width: none;
 }
+
+.facts thead th {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  width: auto;
+}
+.facts td {
+  font-size: 0.86rem;
+}
+.product-details .facts td:last-child {
+  text-align: left;
+}
+.ingredients {
+  font-size: 0.92rem;
+  margin: 12px 0;
+}
+.form-card > h2 {
+  margin-bottom: 16px;
+}

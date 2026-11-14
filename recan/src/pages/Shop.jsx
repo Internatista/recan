@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { products, bySlug, productFacts, PRICE, COLLECTION, BUNDLE_DISCOUNT_PCT } from '../data'
+import { products, bySlug, nutrition, VOLUME, ALLERGENS, STORAGE, pickupPoint, PRICE, COLLECTION, BUNDLE_DISCOUNT_PCT } from '../data'
 import { addSingle, money } from '../store'
 import { ProductGrid, PageHead, QtyStepper, Steps, refillSteps, addedToast, NotFound } from '../components/ui'
 import Gallery from '../components/Gallery'
@@ -10,14 +10,14 @@ export function Shop() {
   return (
     <>
       <PageHead eyebrow={COLLECTION} title="Obchod">
-        Štyri ovocné príchute s elektrolytmi. Každá za {money(PRICE)}, osobný odber je modelový a zdarma.
+        Štyri ovocné príchute s elektrolytmi. Každá za {money(PRICE)}, osobný odber zdarma.
       </PageHead>
       <div className="wrap section-tight">
         <ProductGrid />
         <div className="promo">
           <div>
             <h2>Nevieš si vybrať?</h2>
-            <p>Namiešaj si trojbalíček z troch rôznych príchutí s modelovou zľavou {BUNDLE_DISCOUNT_PCT} %.</p>
+            <p>Namiešaj si trojbalíček z troch rôznych príchutí so zľavou {BUNDLE_DISCOUNT_PCT} %.</p>
           </div>
           <Link className="btn btn-cream" to="/trojbalicek">
             Namiešať trojbalíček
@@ -77,7 +77,7 @@ export function Product() {
             <h1>{p.name}</h1>
             <p className="product-flavor">{p.flavor}</p>
             <p className="product-price">
-              {money(PRICE)} <small>/ kus · modelová cena</small>
+              {money(PRICE)} <small>/ kus · {VOLUME}</small>
             </p>
             <p>{p.description}</p>
             <p className="muted">{p.moment}</p>
@@ -117,7 +117,7 @@ export function Product() {
               Pridať a pokračovať k objednávke
             </button>
             <p className="note">
-              Modelový osobný odber zdarma. Dátum si zvolíš v objednávke. Reálna platba ani výdaj tovaru neprebieha.
+              Osobný odber zdarma. Dátum si zvolíš v objednávke a platíš až pri prevzatí.
             </p>
           </div>
         </div>
@@ -126,47 +126,54 @@ export function Product() {
           <section aria-labelledby="pd-info">
             <h2 id="pd-info">O produkte</h2>
             <p>
-              {p.name} patrí do kolekcie {COLLECTION}. {p.character}: {p.flavor.toLowerCase()}. Na etikete je označenie
-              Electrolytes a slogan Refill · Recharge · Reuse.
+              {p.name} patrí do kolekcie {COLLECTION}. {p.character}: {p.flavor.toLowerCase()}. Nesýtený ovocný nápoj s
+              elektrolytmi v plechovke s objemom {VOLUME}.
             </p>
-            <p>O zdravotných účinkoch nič netvrdíme. V podkladoch konceptu nie sú údaje, ktoré by to umožňovali.</p>
+            <p>Najlepšie chutí vychladený. {STORAGE}</p>
           </section>
 
           <section aria-labelledby="pd-zlozenie">
             <h2 id="pd-zlozenie">Zloženie a výživové údaje</h2>
+            <p className="ingredients">
+              <b>Zloženie:</b> {p.ingredients}
+            </p>
             <table className="facts">
-              <caption className="sr-only">Údaje o produkte a ich stav</caption>
+              <caption className="sr-only">Výživové údaje</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Výživové údaje</th>
+                  <th scope="col">100 ml</th>
+                  <th scope="col">{VOLUME}</th>
+                </tr>
+              </thead>
               <tbody>
-                {productFacts.map((f) => (
-                  <tr key={f.label}>
-                    <th scope="row">{f.label}</th>
-                    <td>{f.label === 'Označenie na etikete' ? `${p.flavor} · ${f.value}` : f.value}</td>
-                    <td>
-                      <span className={`tag tag-${f.status.slice(0, 3)}`}>{f.status}</span>
-                    </td>
+                {nutrition.map((n) => (
+                  <tr key={n.label}>
+                    <th scope="row">{n.label}</th>
+                    <td>{n.per100}</td>
+                    <td>{n.perCan}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            <p className="note">
-              Nedoplnené údaje školského konceptu: objem, zloženie, množstvo elektrolytov, výživové hodnoty a alergény v podkladoch
-              nie sú, preto ich neuvádzame.
+            <p className="ingredients">
+              <b>Alergény:</b> {ALLERGENS}
             </p>
           </section>
 
           <section aria-labelledby="pd-odber">
             <h2 id="pd-odber">Odber a refill</h2>
             <p>
-              <b>Osobný odber</b> je v prototype modelový a zdarma. V objednávke si zvolíš dátum a dostaneš potvrdenie s číslom
-              objednávky. Reálne odberné miesto neexistuje.
+              <b>Osobný odber</b> je zdarma. V objednávke si zvolíš dátum a nákup si prevezmeš na výdajnom mieste{' '}
+              {pickupPoint.name} ({pickupPoint.hours}). {pickupPoint.payment}.
             </p>
             <p>
-              <b>Refill</b> je navrhovaný koncept, nie fungujúca služba:
+              <b>Refill</b> v troch krokoch:
             </p>
             <Steps items={refillSteps} />
             <p>
               <Link className="text-link" to="/refill">
-                Viac o refill koncepte →
+                Viac o refille →
               </Link>
             </p>
           </section>

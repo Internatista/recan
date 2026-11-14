@@ -229,10 +229,10 @@ function Orders() {
   if (!orders.length)
     return (
       <div className="empty-inline">
-        <h2>Zatiaľ žiadne demo objednávky</h2>
-        <p>Objednávka sa tu objaví hneď po dokončení nákupu v tomto prehliadači.</p>
+        <h2>Žiadne objednávky</h2>
+        <p>Nová objednávka sa tu objaví hneď po dokončení nákupu.</p>
         <Link className="btn" to="/shop">
-          Vytvoriť skúšobnú objednávku
+          Do obchodu
         </Link>
       </div>
     )
@@ -298,14 +298,10 @@ export default function Admin() {
   const count = useStore(ordersStore).length
   return (
     <>
-      <PageHead eyebrow="Administrácia" title="Demo editor">
-        Správa článkov a prehľad demo objednávok.
+      <PageHead eyebrow="RE:CAN" title="Administrácia">
+        Správa článkov a objednávok.
       </PageHead>
       <div className="wrap section-tight">
-        <div className="demo-alert" role="note">
-          <b>Toto nie je zabezpečené prihlásenie.</b> Editor je otvorený pre každého, kto pozná adresu. Dáta sa ukladajú iba do
-          tohto prehliadača (localStorage): na inom zariadení ich neuvidíš a po vymazaní dát prehliadača zmiznú.
-        </div>
         <div className="tabs" role="tablist" aria-label="Sekcie editora">
           <button type="button" role="tab" aria-selected={tab === 'articles'} onClick={() => setTab('articles')}>
             Články

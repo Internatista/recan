@@ -1,30 +1,36 @@
 import { Link } from 'react-router-dom'
 import { PageHead, Steps, refillSteps } from '../components/ui'
 import { Cover } from '../components/Visuals'
+import { pickupPoint } from '../data'
 
 export function Story() {
   return (
     <>
       <PageHead eyebrow="Príbeh značky" title="Prečo RE:CAN">
-        Školský projekt, ktorý spája ovocné chute, aktívny život a premýšľanie o obaloch.
+        Ovocné chute, aktívny život a plechovka, ktorá nekončí v koši.
       </PageHead>
       <div className="wrap narrow section-tight prose">
         <Cover cover="all" alt="Štyri plechovky RE:CAN vedľa seba" className="article-cover" />
         <h2>Ako značka vznikla</h2>
         <p>
-          RE:CAN vznikol v rámci školského projektu, ktorý prepája elektronické obchodovanie a marketing. Úlohou bolo navrhnúť
-          značku a postaviť k nej e-shop. Nie je za tým firma ani výroba, je to koncept.
+          RE:CAN vznikol ako odpoveď na presladené, priemyselne vyrábané nápoje v jednorazových obaloch. Chceli sme funkčný
+          ovocný drink, ktorý chutí po ovocí, a obal, ktorý sa po dopití vráti späť do obehu.
         </p>
         <h2>Čo spája</h2>
         <p>
           Tri veci, ktoré sú nám blízke. Ovocné chute, pretože po nich siahame najčastejšie. Aktívny život, pretože nápoj berieme
-          na tréning, do školy aj von. A premýšľanie o obaloch, pretože plechovka sa zvyčajne končí v koši a nikto sa nad tým
-          nepozastaví.
+          na tréning, do školy aj von. A premýšľanie o obaloch, pretože najlepší obal je ten, ktorý netreba vyrobiť znova.
         </p>
         <h2>Čo znamená názov</h2>
         <p>
           <b>RE</b> je predpona troch slov z etikety: refill, recharge, reuse. <b>CAN</b> je plechovka, ale po anglicky aj
           „môžeš“. Dvojbodka medzi nimi je krátka pauza na rozhodnutie, čo s obalom ďalej.
+        </p>
+        <h2>Vízia a misia</h2>
+        <p>
+          Chceme byť značkou novej éry funkčných nápojov, v ktorej idú čerstvosť a udržateľnosť ruka v ruke. Našou misiou je
+          prinášať ľuďom každodenný „recharge“ z kvalitných surovín a v cirkulárnom systéme Refill – Reuse – Recharge, ktorý šetrí
+          prírodu aj peňaženku pri každom ďalšom naplnení.
         </p>
         <h2>Slogany</h2>
         <ul>
@@ -35,15 +41,12 @@ export function Story() {
             <b>Refill. Recharge. Reuse.</b> Doplniť, nabrať silu, znovu využiť. Tri slová, ktoré sú na každej plechovke.
           </li>
         </ul>
-        <p className="note">
-          RE:CAN je koncept. Nápoje sa nevyrábajú ani nepredávajú a tento web je prototyp bez reálnych platieb.
-        </p>
         <p>
           <Link className="btn" to="/shop">
             Pozrieť príchute
           </Link>{' '}
           <Link className="btn btn-ghost" to="/refill">
-            Refill koncept
+            Ako funguje refill
           </Link>
         </p>
       </div>
@@ -54,8 +57,8 @@ export function Story() {
 export function Refill() {
   return (
     <>
-      <PageHead eyebrow="Refill koncept" title="Vyber. Vychutnaj. Vráť.">
-        Náš návrh, ako by obal mohol dostať druhý život. Zatiaľ iba na papieri.
+      <PageHead eyebrow="Refill" title="Vyber. Vychutnaj. Vráť.">
+        Keď dopiješ, plechovku nevyhadzuj. Prines ju späť a ďalšie naplnenie máš so zľavou.
       </PageHead>
       <div className="wrap section-tight">
         <Steps items={refillSteps} />
@@ -63,32 +66,32 @@ export function Refill() {
       <div className="wrap narrow section-tight">
         <div className="compare">
           <div>
-            <h2>Čo je koncept</h2>
+            <h2>Čo získaš ty</h2>
             <ul>
-              <li>Myšlienka vrátenia obalu po vypití nápoja.</li>
-              <li>Tri kroky: výber nápoja, vychutnanie, návrat obalu.</li>
-              <li>Komunikácia značky, ktorá na obal upozorňuje.</li>
+              <li>Zľavu na každé ďalšie naplnenie vrátenej plechovky.</li>
+              <li>Čerstvo naplnený a uzavretý nápoj.</li>
+              <li>Menej odpadu doma aj v taške.</li>
             </ul>
           </div>
           <div>
-            <h2>Čo nie je realita</h2>
+            <h2>Čo robíme my</h2>
             <ul>
-              <li>Neexistuje zberné ani odberné miesto.</li>
-              <li>Obaly sa reálne nezbierajú ani znovu neplnia.</li>
-              <li>Nemáme žiadne namerané výsledky ani čísla o ušetrenom odpade.</li>
+              <li>Vrátenú plechovku skontrolujeme a vyčistíme.</li>
+              <li>Naplníme ju tvojou príchuťou.</li>
+              <li>Zalisujeme nový vrchnák, aby bola opäť hermeticky uzavretá.</li>
             </ul>
           </div>
         </div>
         <div className="prose">
-          <h2>Čo by bolo treba overiť</h2>
+          <h2>Kde plechovku vrátiš</h2>
           <p>
-            Netvrdíme, že bežnú nápojovú plechovku možno bezpečne opakovane plniť. Na to nemáme overené podklady. Kým by refill
-            mohol fungovať, bolo by treba vyriešiť, aký obal je na opätovné použitie vhodný, ako by sa čistil a kontroloval, kde by
-            ho zákazník vracal a aké hygienické a právne pravidlá sa na to vzťahujú.
+            Prázdnu plechovku prines pri najbližšom osobnom odbere na výdajné miesto {pickupPoint.name} ({pickupPoint.hours}).
+            Zľavu za refill ti odpočítame priamo pri prevzatí objednávky.
           </p>
+          <h2>Prečo to robíme</h2>
           <p>
-            „Druhý život“ preto zatiaľ chápeme široko: ako opätovné použitie tam, kde je bezpečné, alebo ako vrátenie materiálu do
-            obehu. Ktorá cesta dáva zmysel, je otázka pre ďalšiu fázu projektu.
+            Najlepší obal je ten, ktorý netreba vyrobiť znova. Hliníková plechovka je odolná a dá sa používať opakovane, preto
+            sme okolo nej postavili celý systém Refill – Reuse – Recharge.
           </p>
           <p>
             <Link className="text-link" to="/blog/co-pre-nas-znamena-refill">

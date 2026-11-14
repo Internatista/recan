@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { products, faq, demoContact, PRICE, BUNDLE_DISCOUNT_PCT } from '../data'
+import { products, faq, pickupPoint, PRICE, BUNDLE_DISCOUNT_PCT } from '../data'
 import { useStore, articlesStore, sortedArticles, money } from '../store'
 import { ProductGrid, ArticleCard, Steps, refillSteps } from '../components/ui'
 import { NetArc, Fruit } from '../components/Visuals'
@@ -9,7 +9,7 @@ import BundleBuilder from '../components/BundleBuilder'
 export const buySteps = [
   { n: '1', t: 'Vyber si príchute', d: 'Jednotlivo alebo ako trojbalíček. Všetko pridáš do košíka jedným klikom.' },
   { n: '2', t: 'Zvoľ dátum odberu', d: 'V objednávke uvedieš meno, e-mail a deň, kedy si chceš nákup vyzdvihnúť.' },
-  { n: '3', t: 'Dostaneš potvrdenie', d: 'Zobrazí sa číslo objednávky so súhrnom. Platba ani reálny odber neprebiehajú.' },
+  { n: '3', t: 'Vyzdvihni a zaplať', d: 'Dostaneš číslo objednávky. Nákup si prevezmeš na výdajnom mieste a zaplatíš až tam.' },
 ]
 
 export default function Home() {
@@ -74,7 +74,7 @@ export default function Home() {
         <div className="section-head">
           <p className="eyebrow">RE:CAN Electrolytes</p>
           <h2 id="h-prichute">Štyri príchute, jedna kolekcia</h2>
-          <p>Každá plechovka stojí {money(PRICE)}. Cena je modelová, rovnako ako celý nákup.</p>
+          <p>Každá plechovka stojí {money(PRICE)}. Osobný odber je zdarma.</p>
         </div>
         <ProductGrid />
         <p className="center">
@@ -89,7 +89,7 @@ export default function Home() {
           <div className="section-head">
             <p className="eyebrow">Ako to funguje</p>
             <h2 id="h-nakup">Nákup v troch krokoch</h2>
-            <p>Modelový nákup s osobným odberom. Slúži na vyskúšanie procesu, nie na reálne doručenie.</p>
+            <p>Objednáš online, vyzdvihneš osobne a platíš až pri prevzatí.</p>
           </div>
           <Steps items={buySteps} />
         </div>
@@ -99,7 +99,7 @@ export default function Home() {
         <div className="section-head">
           <p className="eyebrow">Trojbalíček · −{BUNDLE_DISCOUNT_PCT} %</p>
           <h2 id="h-bundle">Namiešaj si tri rôzne príchute</h2>
-          <p>Vyber tri zo štyroch. Na celý balíček platí modelová zľava {BUNDLE_DISCOUNT_PCT} %.</p>
+          <p>Vyber tri zo štyroch. Na celý balíček platí zľava {BUNDLE_DISCOUNT_PCT} %.</p>
         </div>
         <BundleBuilder />
       </section>
@@ -108,24 +108,24 @@ export default function Home() {
         <div className="wrap section split">
           <div>
             <p className="eyebrow">Príbeh značky</p>
-            <h2 id="h-pribeh">Vznikli sme v škole. Otázka ostala.</h2>
+            <h2 id="h-pribeh">Dobrý nápoj. A čo s plechovkou?</h2>
             <p>
-              RE:CAN je školský projekt, ktorý spája ovocné chute, aktívny život a premýšľanie o obaloch. Pýtali sme sa, či môže
-              byť plechovka súčasťou príbehu aj po poslednom dúšku.
+              RE:CAN spája ovocné chute, aktívny život a premýšľanie o obaloch. Vznikli sme ako odpoveď na presladené nápoje v
+              jednorazových obaloch.
             </p>
             <Link className="btn btn-cream" to="/pribeh">
               Prečítať príbeh
             </Link>
           </div>
           <div>
-            <p className="eyebrow">Refill koncept</p>
+            <p className="eyebrow">Refill</p>
             <h2>Vyber. Vychutnaj. Vráť.</h2>
             <p>
-              Refill je náš návrh, ako dať obalu druhý život. Zatiaľ je to myšlienka, nie spustená služba, a tak ju aj
-              predstavujeme.
+              Keď dopiješ, plechovku nevyhadzuj. Prines ju späť, my ju vyčistíme, naplníme a nanovo uzavrieme. Ďalší nápoj máš
+              so zľavou.
             </p>
             <Link className="btn btn-outline-cream" to="/refill">
-              Ako by refill fungoval
+              Ako funguje refill
             </Link>
           </div>
         </div>
@@ -133,12 +133,12 @@ export default function Home() {
 
       <section className="section wrap" aria-labelledby="h-refill">
         <div className="section-head">
-          <p className="eyebrow">Navrhovaný proces</p>
+          <p className="eyebrow">Druhý život plechovky</p>
           <h2 id="h-refill">Refill v troch krokoch</h2>
         </div>
         <Steps items={refillSteps} />
         <p className="note center-note">
-          Ide o koncept. Reálny zber obalov ani ich opätovné plnenie neprebieha a jeho bezpečnosť nebola overená.
+          Plechovky vraciaš pri osobnom odbere. Zľavu za refill ti odpočítame priamo na mieste.
         </p>
       </section>
 
@@ -155,7 +155,7 @@ export default function Home() {
               ))}
             </div>
           ) : (
-            <p className="center">Zatiaľ tu nie sú žiadne články.</p>
+            <p className="center">Nové články pripravujeme.</p>
           )}
           <p className="center">
             <Link className="text-link" to="/blog">
@@ -184,21 +184,21 @@ export default function Home() {
         <div className="contact-card">
           <div>
             <p className="eyebrow">Kontakt</p>
-            <h2 id="h-kontakt">Napíš nám (akože)</h2>
-            <p>Údaje nižšie sú ukážkové. RE:CAN nemá reálnu prevádzku, e-mailovú schránku ani odberné miesto.</p>
+            <h2 id="h-kontakt">Kde nás nájdeš</h2>
+            <p>Objednávky vydávame a prázdne plechovky prijímame na našom výdajnom mieste.</p>
           </div>
           <dl>
             <div>
-              <dt>E-mail</dt>
-              <dd>{demoContact.email}</dd>
+              <dt>Výdajné miesto</dt>
+              <dd>{pickupPoint.name}</dd>
             </div>
             <div>
-              <dt>Instagram</dt>
-              <dd>{demoContact.instagram}</dd>
+              <dt>Otváracie hodiny</dt>
+              <dd>{pickupPoint.hours}</dd>
             </div>
             <div>
-              <dt>Osobný odber</dt>
-              <dd>{demoContact.pickup}</dd>
+              <dt>Platba</dt>
+              <dd>{pickupPoint.payment}</dd>
             </div>
           </dl>
         </div>

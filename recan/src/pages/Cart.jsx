@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { BUNDLE_DISCOUNT_PCT } from '../data'
+import { BUNDLE_DISCOUNT_PCT, pickupPoint } from '../data'
 import {
   useStore,
   cartStore,
@@ -24,7 +24,7 @@ function EmptyCart({ title = 'Košík je prázdny' }) {
         :
       </div>
       <h1>{title}</h1>
-      <p>Zatiaľ v ňom nie je žiadna plechovka. Vyber si príchuť alebo si namiešaj trojbalíček.</p>
+      <p>Nie je v ňom žiadna plechovka. Vyber si príchuť alebo si namiešaj trojbalíček.</p>
       <div className="empty-actions">
         <Link className="btn" to="/shop">
           Do obchodu
@@ -51,7 +51,7 @@ function Totals({ t }) {
         </div>
       )}
       <div>
-        <dt>Modelový osobný odber</dt>
+        <dt>Osobný odber</dt>
         <dd>Zdarma</dd>
       </div>
       <div className="grand">
@@ -119,7 +119,7 @@ export function Cart() {
           <Link className="btn btn-ghost btn-block" to="/shop">
             Pokračovať v nákupe
           </Link>
-          <p className="note">Školský demo nákup. Neprebieha žiadna platba.</p>
+          <p className="note">Platíš až pri prevzatí, hotovosťou alebo kartou.</p>
         </aside>
       </div>
     </>
@@ -195,22 +195,19 @@ export function Checkout() {
       <PageHead eyebrow="Krok 2 z 2" title="Dokončenie objednávky" />
       <div className="wrap section-tight checkout-layout">
         <form className="form-card" onSubmit={submit} noValidate>
-          <div className="demo-alert" role="note">
-            <b>Školský demo nákup.</b> Neprebieha reálna platba a nič ti nepríde. Zadávaj prosím <b>fiktívne údaje</b>, nie svoje
-            skutočné.
-          </div>
-          <Field id="name" label="Meno" autoComplete="off" placeholder="Napr. Jana Testovacia" {...bind('name')} />
-          <Field id="email" label="E-mail" type="email" inputMode="email" autoComplete="off" placeholder="jana@priklad.sk" {...bind('email')} />
+          <h2>Kontaktné údaje a odber</h2>
+          <Field id="name" label="Meno" autoComplete="name" placeholder="Meno a priezvisko" {...bind('name')} />
+          <Field id="email" label="E-mail" type="email" inputMode="email" autoComplete="email" placeholder="meno@priklad.sk" {...bind('email')} />
           <Field
             id="pickup"
             label="Dátum osobného odberu"
             type="date"
             min={todayISO()}
-            hint="Najskôr dnes. Odber je modelový, bez reálneho miesta."
+            hint={`${pickupPoint.name}, ${pickupPoint.hours}. ${pickupPoint.payment}.`}
             {...bind('pickup')}
           />
           <button type="submit" className="btn btn-block">
-            Potvrdiť demo objednávku · {money(t.total)}
+            Objednať s platbou pri odbere · {money(t.total)}
           </button>
           <Link className="text-link" to="/cart">
             ← Späť do košíka
@@ -259,32 +256,32 @@ export function OrderConfirmation() {
   const { id } = useParams()
   const order = useStore(ordersStore).find((o) => o.id === id)
   if (!order)
-    return <NotFound title="Objednávku sme nenašli" text="Demo objednávky sa ukladajú iba v prehliadači, v ktorom vznikli." />
+    return <NotFound title="Objednávku sme nenašli" text="Skontroluj číslo objednávky alebo pokračuj do obchodu." />
 
   return (
     <div className="wrap narrow confirm">
       <p className="confirm-badge" aria-hidden="true">
         ✓
       </p>
-      <p className="eyebrow">Demo objednávka prijatá</p>
+      <p className="eyebrow">Objednávka prijatá</p>
       <h1>Ďakujeme, {order.name}!</h1>
       <p className="lead">
-        Číslo objednávky <b data-testid="order-id">{order.id}</b>. Termín modelového odberu: <b>{formatDate(order.pickup)}</b>.
+        Číslo objednávky <b data-testid="order-id">{order.id}</b>. Termín osobného odberu: <b>{formatDate(order.pickup)}</b>.
       </p>
       <div className="form-card">
         <h2>Súhrn objednávky</h2>
         <OrderItems order={order} />
         <p className="note">
-          Toto je školský prototyp. Žiadna platba neprebehla, e-mail na adresu {order.email} neodišiel a tovar nie je reálne
-          pripravený.
+          Objednávku si v zvolený deň prevezmeš na výdajnom mieste {pickupPoint.name} ({pickupPoint.hours}). Stačí povedať
+          číslo objednávky. {pickupPoint.payment}. Nezabudni priniesť prázdne plechovky na refill.
         </p>
       </div>
       <div className="empty-actions">
         <Link className="btn" to="/shop">
           Späť do obchodu
         </Link>
-        <Link className="btn btn-ghost" to="/admin">
-          Zobraziť v demo editore
+        <Link className="btn btn-ghost" to="/refill">
+          Ako funguje refill
         </Link>
       </div>
     </div>

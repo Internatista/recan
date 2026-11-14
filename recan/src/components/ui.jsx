@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { products, demoContact, MAX_QTY, PRICE } from '../data'
+import { products, pickupPoint, MAX_QTY, PRICE, BUNDLE_DISCOUNT_PCT } from '../data'
 import { useStore, cartStore, cartTotals, toastStore, dismissToast, addSingle, toast, money, formatDate } from '../store'
 import { Cover } from './Visuals'
 import logoDark from '../assets/logo-dark.png'
@@ -27,7 +27,7 @@ export function Header() {
 
   return (
     <header className="site-header">
-      <div className="demo-bar">Školský prototyp · bez reálnych platieb a dodania</div>
+      <div className="demo-bar">Trojbalíček −{BUNDLE_DISCOUNT_PCT} % · Osobný odber zdarma · Refill so zľavou</div>
       <div className="wrap header-row">
         <Link to="/" className="logo-link">
           <Logo />
@@ -83,19 +83,19 @@ export function Footer() {
         <div>
           <h2>Značka</h2>
           <Link to="/pribeh">Príbeh</Link>
-          <Link to="/refill">Refill koncept</Link>
+          <Link to="/refill">Refill</Link>
           <Link to="/blog">Journal</Link>
-          <Link to="/admin">Demo editor</Link>
+          <Link to="/admin">Administrácia</Link>
         </div>
         <div>
-          <h2>Kontakt (ukážkový)</h2>
-          <p>{demoContact.email}</p>
-          <p>Instagram: {demoContact.instagram}</p>
-          <p>{demoContact.pickup}</p>
+          <h2>Výdajné miesto</h2>
+          <p>{pickupPoint.name}</p>
+          <p>{pickupPoint.hours}</p>
+          <p>{pickupPoint.payment}</p>
         </div>
       </div>
       <div className="wrap footer-note">
-        RE:CAN je školský koncept. Web je prototyp bez reálnych platieb, dodania a prevádzky. Kontaktné údaje sú ukážkové.
+        © 2026 RE:CAN. Good drink. Second life.
       </div>
     </footer>
   )
@@ -217,7 +217,7 @@ export function Note({ children, tone = '' }) {
 export const refillSteps = [
   { n: '1', t: 'Vyber si nápoj', d: 'Zvolíš si príchuť, ktorá ti sadne k dnešnému dňu.' },
   { n: '2', t: 'Vychutnaj si ho', d: 'Studený, po tréningu, cez prestávku. Ako chceš.' },
-  { n: '3', t: 'Vráť obal', d: 'Prázdny obal nekončí v koši, ale vracia sa späť, aby dostal druhý život.' },
+  { n: '3', t: 'Vráť obal', d: 'Prázdnu plechovku prines späť. Vyčistíme ju, naplníme a ďalší nápoj máš so zľavou.' },
 ]
 
 export function Steps({ items }) {

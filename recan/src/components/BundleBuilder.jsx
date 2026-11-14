@@ -72,7 +72,7 @@ export default function BundleBuilder() {
             Pôvodne <s>{money(BUNDLE_ORIGINAL)}</s>
           </span>
           <strong>{money(BUNDLE_PRICE)}</strong>
-          <em>Modelová zľava −{BUNDLE_DISCOUNT_PCT} %</em>
+          <em>Zľava −{BUNDLE_DISCOUNT_PCT} %</em>
         </div>
         <button type="button" className="btn btn-block" disabled={!full} onClick={add}>
           {full ? 'Pridať trojbalíček do košíka' : `Vyber ešte ${BUNDLE_SIZE - picked.length}`}

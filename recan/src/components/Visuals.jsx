@@ -119,7 +119,7 @@ const slots = [
   { x: 70, y: 76, w: 14, r: -24 },
 ]
 
-// Modelový vizuál príchute: farebná plocha, ovocie, oblúk ihriska a (voliteľne) plechovka.
+// Vizuál príchute: farebná plocha, ovocie, oblúk ihriska a (voliteľne) plechovka.
 export function Scene({ slug, withCan = true, alt = '', className = '' }) {
   const p = bySlug(slug)
   if (!p) return null

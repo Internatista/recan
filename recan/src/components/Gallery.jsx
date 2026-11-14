@@ -44,7 +44,7 @@ export default function Gallery({ product }) {
           </div>
         ) : (
           <div className="gallery-slide">
-            <Scene slug={product.slug} alt={`RE:CAN ${product.name} – modelový vizuál s ovocím: ${product.flavor}`} />
+            <Scene slug={product.slug} alt={`RE:CAN ${product.name} s ovocím: ${product.flavor}`} />
           </div>
         )}
         <button type="button" className="gallery-arrow prev" onClick={() => go(index - 1)} aria-label="Predchádzajúci obrázok">

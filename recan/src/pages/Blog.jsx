@@ -19,9 +19,9 @@ export function Blog() {
           </div>
         ) : (
           <div className="empty-inline">
-            <p>Zatiaľ tu nie sú žiadne články.</p>
-            <Link className="btn btn-ghost" to="/admin">
-              Pridať článok v demo editore
+            <p>Nové články pripravujeme.</p>
+            <Link className="btn btn-ghost" to="/shop">
+              Do obchodu
             </Link>
           </div>
         )}
@@ -33,7 +33,7 @@ export function Blog() {
 export function Article() {
   const { slug } = useParams()
   const a = useStore(articlesStore).find((x) => x.slug === slug)
-  if (!a) return <NotFound title="Článok sme nenašli" text="Možno bol odstránený v demo editore." />
+  if (!a) return <NotFound title="Článok sme nenašli" text="Možno bol presunutý alebo odstránený." />
 
   // Text z editora vykresľujeme ako obyčajný text po odsekoch, nikdy ako HTML.
   const paragraphs = String(a.body || '')
