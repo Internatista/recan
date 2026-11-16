@@ -172,7 +172,7 @@ button {
   margin: 28px auto 0;
 }
 
-/* tlačidlá */
+/* buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -244,7 +244,7 @@ button {
   border-color: var(--cream);
 }
 
-/* hlavička */
+/* header */
 .site-header {
   position: sticky;
   top: 0;
@@ -525,7 +525,7 @@ button {
   }
 }
 
-/* pásy */
+/* bands */
 .band-cream {
   background: var(--cream);
 }
@@ -547,7 +547,7 @@ button {
   }
 }
 
-/* produkty */
+/* products */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -655,7 +655,7 @@ button {
   margin: 0;
 }
 
-/* kroky */
+/* steps */
 .steps {
   list-style: none;
   padding: 0;
@@ -715,7 +715,7 @@ button {
   font-size: 1.05rem;
 }
 
-/* trojbalíček */
+/* three-pack */
 .bundle {
   display: grid;
   gap: 20px;
@@ -858,7 +858,7 @@ button {
   font-size: 0.9rem;
 }
 
-/* vizuály */
+/* visuals */
 .scene {
   position: relative;
   overflow: hidden;
@@ -930,7 +930,7 @@ button {
   transform: rotate(5deg) translateY(4%);
 }
 
-/* články */
+/* articles */
 .article-grid {
   display: grid;
   gap: 22px;
@@ -1039,7 +1039,7 @@ button {
   color: var(--muted);
 }
 
-/* kontakt */
+/* contact */
 .contact-card {
   background: var(--cream);
   border: 2px solid var(--ink);
@@ -1072,7 +1072,7 @@ dd {
   overflow-wrap: anywhere;
 }
 
-/* stránky */
+/* pages */
 .page-head {
   padding-top: clamp(28px, 5vw, 56px);
 }
@@ -1088,7 +1088,7 @@ dd {
   color: var(--muted);
 }
 
-/* detail produktu */
+/* product detail */
 .product-layout {
   display: grid;
   gap: 28px;
@@ -1363,7 +1363,7 @@ dd {
   margin-left: 8px;
 }
 
-/* košík a objednávka */
+/* cart and checkout */
 .checkout-layout {
   display: grid;
   gap: 24px;
@@ -1915,7 +1915,7 @@ legend {
   }
 }
 
-/* pätička */
+/* footer */
 .site-footer {
   background: var(--ink);
   color: var(--cream);

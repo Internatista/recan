@@ -7,13 +7,13 @@ import { useSeo } from '../seo'
 export function Blog() {
   const articles = sortedArticles(useStore(articlesStore))
   useSeo({
-    title: 'Journal – blog o nápojoch, rituáloch a refille',
-    description: 'Články RE:CAN o príbehu značky, každodenných rituáloch a o tom, ako funguje refill plechoviek.',
+    title: 'Journal – a blog about drinks, rituals and refill',
+    description: 'RE:CAN articles about our brand story, everyday rituals and how can refill works.',
   })
   return (
     <>
-      <PageHead eyebrow="Journal" title="Čítanie k plechovke">
-        O značke, malých rituáloch a o tom, čo si predstavujeme pod slovom refill.
+      <PageHead eyebrow="Journal" title="Reading with your can">
+        About the brand, small rituals and what we mean by the word refill.
       </PageHead>
       <div className="wrap section-tight">
         {articles.length ? (
@@ -24,9 +24,9 @@ export function Blog() {
           </div>
         ) : (
           <div className="empty-inline">
-            <p>Nové články pripravujeme.</p>
+            <p>New articles are on the way.</p>
             <Link className="btn btn-ghost" to="/shop">
-              Do obchodu
+              Go to shop
             </Link>
           </div>
         )}
@@ -53,11 +53,11 @@ export function Article() {
             publisher: { '@type': 'Organization', name: 'RE:CAN' },
           },
         }
-      : { title: 'Článok sa nenašiel', noindex: true },
+      : { title: 'Article not found', noindex: true },
   )
-  if (!a) return <NotFound title="Článok sme nenašli" text="Možno bol presunutý alebo odstránený." />
+  if (!a) return <NotFound title="Article not found" text="It may have been moved or removed." />
 
-  // Text z editora vykresľujeme ako obyčajný text po odsekoch, nikdy ako HTML.
+  // Editor text is rendered as plain text split into paragraphs, never as HTML.
   const paragraphs = String(a.body || '')
     .split(/\n\s*\n/)
     .map((s) => s.trim())
@@ -66,21 +66,21 @@ export function Article() {
   return (
     <article className="article wrap narrow">
       <Link className="text-link" to="/blog">
-        ← Späť na články
+        ← Back to articles
       </Link>
       <p className="eyebrow">
         {a.category} · <time dateTime={a.date}>{formatDate(a.date)}</time>
       </p>
       <h1>{a.title}</h1>
       {a.excerpt && <p className="lead">{a.excerpt}</p>}
-      <Cover cover={a.cover} alt={`Titulný obrázok článku ${a.title}`} className="article-cover" />
+      <Cover cover={a.cover} alt={`Cover image for ${a.title}`} className="article-cover" />
       <div className="prose">
         {paragraphs.map((p, i) => (
           <p key={i}>{p}</p>
         ))}
       </div>
       <Link className="btn btn-ghost" to="/blog">
-        ← Späť na články
+        ← Back to articles
       </Link>
     </article>
   )

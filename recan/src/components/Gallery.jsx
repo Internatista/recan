@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { Scene } from './Visuals'
 
-// Galéria: 1. samostatný výrez plechovky, 2. vizuál s ovocím a pozadím.
+// Gallery: 1. standalone can cut-out, 2. visual with fruit and background.
 export default function Gallery({ product }) {
   const [index, setIndex] = useState(0)
   const start = useRef(null)
@@ -19,7 +19,7 @@ export default function Gallery({ product }) {
     if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) go(index + (dx < 0 ? 1 : -1))
   }
 
-  const labels = [`Plechovka ${product.name}`, `${product.name} s ovocím`]
+  const labels = [`${product.name} can`, `${product.name} with fruit`]
 
   return (
     <div className="gallery" style={{ '--c': product.color, '--soft': product.soft }}>
@@ -34,23 +34,23 @@ export default function Gallery({ product }) {
         }}
         tabIndex={0}
         role="group"
-        aria-roledescription="galéria"
-        aria-label={`Galéria produktu ${product.name}, obrázok ${index + 1} z ${count}`}
+        aria-roledescription="gallery"
+        aria-label={`${product.name} gallery, image ${index + 1} of ${count}`}
         data-index={index}
       >
         {index === 0 ? (
           <div className="gallery-slide gallery-can">
-            <img src={product.img} alt={`Plechovka RE:CAN ${product.name} – ${product.flavor}`} draggable="false" />
+            <img src={product.img} alt={`RE:CAN ${product.name} can – ${product.flavor}`} draggable="false" />
           </div>
         ) : (
           <div className="gallery-slide">
-            <Scene slug={product.slug} alt={`RE:CAN ${product.name} s ovocím: ${product.flavor}`} />
+            <Scene slug={product.slug} alt={`RE:CAN ${product.name} with fruit: ${product.flavor}`} />
           </div>
         )}
-        <button type="button" className="gallery-arrow prev" onClick={() => go(index - 1)} aria-label="Predchádzajúci obrázok">
+        <button type="button" className="gallery-arrow prev" onClick={() => go(index - 1)} aria-label="Previous image">
           ←
         </button>
-        <button type="button" className="gallery-arrow next" onClick={() => go(index + 1)} aria-label="Nasledujúci obrázok">
+        <button type="button" className="gallery-arrow next" onClick={() => go(index + 1)} aria-label="Next image">
           →
         </button>
         <span className="gallery-counter" aria-hidden="true">
@@ -64,7 +64,7 @@ export default function Gallery({ product }) {
             type="button"
             className={i === index ? 'is-active' : ''}
             onClick={() => setIndex(i)}
-            aria-label={`Zobraziť obrázok ${i + 1}: ${label}`}
+            aria-label={`Show image ${i + 1}: ${label}`}
             aria-pressed={i === index}
           >
             {i === 0 ? <img src={product.img} alt="" /> : <Scene slug={product.slug} />}

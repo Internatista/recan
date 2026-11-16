@@ -8,9 +8,9 @@ import logoDark from '../assets/logo-dark.png'
 import logoLight from '../assets/logo-light.png'
 
 const nav = [
-  { to: '/shop', label: 'Obchod' },
-  { to: '/trojbalicek', label: 'Trojbalíček' },
-  { to: '/pribeh', label: 'Príbeh' },
+  { to: '/shop', label: 'Shop' },
+  { to: '/bundle', label: 'Three-pack' },
+  { to: '/story', label: 'Story' },
   { to: '/refill', label: 'Refill' },
   { to: '/blog', label: 'Journal' },
 ]
@@ -28,12 +28,12 @@ export function Header() {
 
   return (
     <header className="site-header">
-      <div className="demo-bar">Trojbalíček −{BUNDLE_DISCOUNT_PCT} % · Osobný odber zdarma · Refill so zľavou</div>
+      <div className="demo-bar">Three-pack −{BUNDLE_DISCOUNT_PCT}% · Free pickup · Refill discount</div>
       <div className="wrap header-row">
         <Link to="/" className="logo-link">
           <Logo />
         </Link>
-        <nav className={`main-nav ${open ? 'is-open' : ''}`} id="hlavne-menu" aria-label="Hlavná navigácia">
+        <nav className={`main-nav ${open ? 'is-open' : ''}`} id="main-menu" aria-label="Main navigation">
           {nav.map((n) => (
             <NavLink key={n.to} to={n.to}>
               {n.label}
@@ -41,11 +41,11 @@ export function Header() {
           ))}
         </nav>
         <div className="header-actions">
-          <Link to="/cart" className="cart-link" aria-label={`Košík, počet plechoviek: ${cans}`}>
+          <Link to="/cart" className="cart-link" aria-label={`Cart, cans: ${cans}`}>
             <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
               <path d="M7 7V6a5 5 0 0 1 10 0v1h3l-1.2 13.2a2 2 0 0 1-2 1.8H7.2a2 2 0 0 1-2-1.8L4 7h3zm2 0h6V6a3 3 0 0 0-6 0v1z" fill="currentColor" />
             </svg>
-            <span>Košík</span>
+            <span>Cart</span>
             <b className="cart-count" data-testid="cart-count">
               {cans}
             </b>
@@ -54,10 +54,10 @@ export function Header() {
             type="button"
             className="menu-btn"
             aria-expanded={open}
-            aria-controls="hlavne-menu"
+            aria-controls="main-menu"
             onClick={() => setOpen((o) => !o)}
           >
-            <span className="sr-only">{open ? 'Zavrieť menu' : 'Otvoriť menu'}</span>
+            <span className="sr-only">{open ? 'Close menu' : 'Open menu'}</span>
             <span className="menu-icon" aria-hidden="true" />
           </button>
         </div>
@@ -76,21 +76,21 @@ export function Footer() {
           <p className="muted-on-dark">Refill. Recharge. Reuse.</p>
         </div>
         <div>
-          <h2>Nakupovanie</h2>
-          <Link to="/shop">Obchod</Link>
-          <Link to="/trojbalicek">Trojbalíček</Link>
-          <Link to="/cart">Košík</Link>
-          <a href="/app/">Mobilná aplikácia</a>
+          <h2>Shopping</h2>
+          <Link to="/shop">Shop</Link>
+          <Link to="/bundle">Three-pack</Link>
+          <Link to="/cart">Cart</Link>
+          <a href="/app/">Mobile app</a>
         </div>
         <div>
-          <h2>Značka</h2>
-          <Link to="/pribeh">Príbeh</Link>
+          <h2>Brand</h2>
+          <Link to="/story">Story</Link>
           <Link to="/refill">Refill</Link>
           <Link to="/blog">Journal</Link>
-          <Link to="/admin">Administrácia</Link>
+          <Link to="/admin">Admin</Link>
         </div>
         <div>
-          <h2>Výdajné miesto</h2>
+          <h2>Pickup point</h2>
           <p>{pickupPoint.name}</p>
           <p>{pickupPoint.hours}</p>
           <p>{pickupPoint.payment}</p>
@@ -115,7 +115,7 @@ export function Toast() {
               {t.link.label}
             </Link>
           )}
-          <button type="button" onClick={dismissToast} aria-label="Zavrieť oznámenie">
+          <button type="button" onClick={dismissToast} aria-label="Close notification">
             ×
           </button>
         </div>
@@ -127,24 +127,24 @@ export function Toast() {
 export function QtyStepper({ value, onChange, label }) {
   return (
     <div className="qty" role="group" aria-label={label}>
-      <button type="button" onClick={() => onChange(value - 1)} disabled={value <= 1} aria-label="Znížiť množstvo">
+      <button type="button" onClick={() => onChange(value - 1)} disabled={value <= 1} aria-label="Decrease quantity">
         −
       </button>
       <output aria-live="polite">{value}</output>
-      <button type="button" onClick={() => onChange(value + 1)} disabled={value >= MAX_QTY} aria-label="Zvýšiť množstvo">
+      <button type="button" onClick={() => onChange(value + 1)} disabled={value >= MAX_QTY} aria-label="Increase quantity">
         +
       </button>
     </div>
   )
 }
 
-export const addedToast = (text) => toast(text, { to: '/cart', label: 'Zobraziť košík' })
+export const addedToast = (text) => toast(text, { to: '/cart', label: 'View cart' })
 
 export function ProductCard({ p }) {
   return (
     <article className="product-card" style={{ '--c': p.color, '--soft': p.soft }}>
-      <Link to={`/products/${p.slug}`} className="product-card-media" aria-label={`Detail produktu ${p.name}`}>
-        <img src={p.img} alt={`Plechovka RE:CAN ${p.name}`} loading="lazy" />
+      <Link to={`/products/${p.slug}`} className="product-card-media" aria-label={`${p.name} product details`}>
+        <img src={p.img} alt={`RE:CAN ${p.name} can`} loading="lazy" />
       </Link>
       <div className="product-card-body">
         <h3>
@@ -158,11 +158,11 @@ export function ProductCard({ p }) {
             className="btn btn-small"
             onClick={() => {
               addSingle(p.slug, 1)
-              addedToast(`${p.name} je v košíku.`)
+              addedToast(`${p.name} added to cart.`)
             }}
-            aria-label={`Pridať ${p.name} do košíka`}
+            aria-label={`Add ${p.name} to cart`}
           >
-            + Do košíka
+            + Add to cart
           </button>
         </div>
       </div>
@@ -194,8 +194,8 @@ export function ArticleCard({ a }) {
           <Link to={`/blog/${a.slug}`}>{a.title}</Link>
         </h3>
         <p>{a.excerpt}</p>
-        <Link className="text-link" to={`/blog/${a.slug}`} aria-label={`Čítať článok: ${a.title}`}>
-          Čítať článok →
+        <Link className="text-link" to={`/blog/${a.slug}`} aria-label={`Read article: ${a.title}`}>
+          Read article →
         </Link>
       </div>
     </article>
@@ -217,9 +217,9 @@ export function Note({ children, tone = '' }) {
 }
 
 export const refillSteps = [
-  { n: '1', t: 'Vyber si nápoj', d: 'Zvolíš si príchuť, ktorá ti sadne k dnešnému dňu.' },
-  { n: '2', t: 'Vychutnaj si ho', d: 'Studený, po tréningu, cez prestávku. Ako chceš.' },
-  { n: '3', t: 'Vráť obal', d: 'Prázdnu plechovku prines späť. Vyčistíme ju, naplníme a ďalší nápoj máš so zľavou.' },
+  { n: '1', t: 'Choose a drink', d: 'Pick the flavour that suits your day.' },
+  { n: '2', t: 'Enjoy it', d: 'Cold, after training, during a break. However you like.' },
+  { n: '3', t: 'Return the can', d: 'Bring the empty can back. We clean it, refill it and your next drink is discounted.' },
 ]
 
 export function Steps({ items }) {
@@ -238,7 +238,7 @@ export function Steps({ items }) {
   )
 }
 
-export function NotFound({ title = 'Túto stránku sme nenašli', text = 'Adresa neexistuje alebo bola zmenená.' }) {
+export function NotFound({ title = 'Page not found', text = 'This address does not exist or has changed.' }) {
   useSeo({ title, noindex: true })
   return (
     <>
@@ -247,10 +247,10 @@ export function NotFound({ title = 'Túto stránku sme nenašli', text = 'Adresa
       </PageHead>
       <div className="wrap section-tight">
         <Link className="btn" to="/shop">
-          Do obchodu
+          Go to shop
         </Link>{' '}
         <Link className="btn btn-ghost" to="/">
-          Na úvod
+          Home
         </Link>
       </div>
     </>

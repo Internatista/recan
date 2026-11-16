@@ -11,7 +11,7 @@ import {
   ORDER_STATUSES,
 } from './data'
 
-// ---------- malý store nad localStorage ----------
+// ---------- small store on top of localStorage ----------
 function createStore(key, fallback, sanitize = (v) => v) {
   const load = () => {
     try {
@@ -38,7 +38,7 @@ function createStore(key, fallback, sanitize = (v) => v) {
       try {
         localStorage.setItem(key, JSON.stringify(state))
       } catch {
-        /* plné alebo nedostupné úložisko – stav ostane aspoň v pamäti */
+        /* storage full or unavailable – state stays in memory */
       }
       emit()
     },
@@ -53,8 +53,8 @@ export const useStore = (store) => useSyncExternalStore(store.subscribe, store.g
 const clampQty = (n) => Math.max(1, Math.min(MAX_QTY, Math.round(Number(n)) || 1))
 const order = (slug) => products.findIndex((p) => p.slug === slug)
 
-// ---------- košík ----------
-// riadok: { id, type: 'single', slug, qty } | { id, type: 'bundle', slugs: [3], qty }
+// ---------- cart ----------
+// line: { id, type: 'single', slug, qty } | { id, type: 'bundle', slugs: [3], qty }
 const sanitizeCart = (lines) =>
   Array.isArray(lines)
     ? lines
@@ -88,13 +88,13 @@ export const setQty = (id, qty) =>
   cartStore.set((lines) => lines.map((l) => (l.id === id ? { ...l, qty: clampQty(qty) } : l)))
 export const removeLine = (id) => cartStore.set((lines) => lines.filter((l) => l.id !== id))
 
-// Zľava sa počíta výhradne z typu riadku, takže sa nemôže preniesť na samostatné kusy.
+// The discount depends only on the line type, so it can never carry over to single items.
 export function describeLine(line) {
   if (line.type === 'bundle') {
     const items = line.slugs.map(bySlug)
     return {
       ...line,
-      title: 'Trojbalíček',
+      title: 'Three-pack',
       detail: items.map((p) => p.name).join(' + '),
       images: items,
       cans: BUNDLE_SIZE * line.qty,
@@ -124,8 +124,8 @@ export function cartTotals(lines) {
   return { rows, subtotal, discount: subtotal - total, total, cans: rows.reduce((s, r) => s + r.cans, 0) }
 }
 
-// ---------- objednávky ----------
-// Testovacie objednávky, aby administrácia nebola prázdna v žiadnom prehliadači.
+// ---------- orders ----------
+// Test orders so the admin is never empty, in any browser.
 function snapshot(id, createdAt, name, email, pickup, status, lines) {
   const { rows, subtotal, discount, total, cans } = cartTotals(lines)
   return {
@@ -194,7 +194,7 @@ export const seedOrders = [
   ]),
 ]
 
-export const ordersStore = createStore('recan.orders.v2', seedOrders, (v) => (Array.isArray(v) ? v : seedOrders))
+export const ordersStore = createStore('recan.orders.v3', seedOrders, (v) => (Array.isArray(v) ? v : seedOrders))
 export const resetOrders = () => ordersStore.set(seedOrders)
 
 export function createOrder({ name, email, pickup }) {
@@ -231,8 +231,8 @@ export function createOrder({ name, email, pickup }) {
 export const setOrderStatus = (id, status) =>
   ordersStore.set((list) => list.map((o) => (o.id === id ? { ...o, status } : o)))
 
-// ---------- články ----------
-export const articlesStore = createStore('recan.articles.v2', seedArticles, (v) =>
+// ---------- articles ----------
+export const articlesStore = createStore('recan.articles.v3', seedArticles, (v) =>
   Array.isArray(v) ? v.filter((a) => a && a.slug && a.title) : seedArticles,
 )
 
@@ -243,7 +243,7 @@ export const slugify = (text) =>
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
-    .slice(0, 70) || 'clanok'
+    .slice(0, 70) || 'article'
 
 export function saveArticle(data, existingSlug) {
   let saved
@@ -285,15 +285,15 @@ export function dismissToast() {
   toastSubs.forEach((fn) => fn())
 }
 
-// ---------- formátovanie ----------
-const eur = new Intl.NumberFormat('sk-SK', { style: 'currency', currency: 'EUR' })
+// ---------- formatting ----------
+const eur = new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR' })
 export const money = (cents) => eur.format(cents / 100)
 export const formatDate = (iso) => {
   const d = new Date(iso.length === 10 ? `${iso}T12:00:00` : iso)
-  return Number.isNaN(d.getTime()) ? iso : d.toLocaleDateString('sk-SK', { day: 'numeric', month: 'long', year: 'numeric' })
+  return Number.isNaN(d.getTime()) ? iso : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
 }
 export const todayISO = () => {
   const d = new Date()
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 }
-export const cansLabel = (n) => (n === 1 ? '1 plechovka' : n >= 2 && n <= 4 ? `${n} plechovky` : `${n} plechoviek`)
+export const cansLabel = (n) => (n === 1 ? '1 can' : `${n} cans`)

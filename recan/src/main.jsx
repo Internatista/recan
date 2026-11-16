@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Routes, Route, useLocation, useNavigationType } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigationType, useParams } from 'react-router-dom'
 import '@fontsource/titan-one/400.css'
 import '@fontsource/ibm-plex-sans/400.css'
 import '@fontsource/ibm-plex-sans/500.css'
@@ -24,6 +24,12 @@ function ScrollManager() {
   return null
 }
 
+// Older Slovak addresses redirect to the English ones.
+function OldOrderRedirect() {
+  const { id } = useParams()
+  return <Navigate to={`/order/${id}`} replace />
+}
+
 function AppRedirect() {
   useEffect(() => {
     window.location.replace('/app/')
@@ -36,7 +42,7 @@ function App() {
     <BrowserRouter>
       <ScrollManager />
       <a className="skip-link" href="#obsah">
-        Preskočiť na obsah
+        Skip to content
       </a>
       <Header />
       <main id="obsah">
@@ -44,16 +50,19 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/products/:slug" element={<Product />} />
-          <Route path="/trojbalicek" element={<BundlePage />} />
+          <Route path="/bundle" element={<BundlePage />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
-          <Route path="/objednavka/:id" element={<OrderConfirmation />} />
+          <Route path="/order/:id" element={<OrderConfirmation />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<Article />} />
-          <Route path="/pribeh" element={<Story />} />
+          <Route path="/story" element={<Story />} />
           <Route path="/refill" element={<Refill />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/app" element={<AppRedirect />} />
+          <Route path="/trojbalicek" element={<Navigate to="/bundle" replace />} />
+          <Route path="/pribeh" element={<Navigate to="/story" replace />} />
+          <Route path="/objednavka/:id" element={<OldOrderRedirect />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

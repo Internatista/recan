@@ -21,10 +21,10 @@ import { OrderItems } from './Cart'
 
 const blank = { title: '', category: '', excerpt: '', body: '', cover: 'all' }
 
-// Zmenší nahraný obrázok, aby sa zmestil do localStorage.
+// Shrinks an uploaded image so it fits into localStorage.
 function readImage(file) {
   return new Promise((resolve, reject) => {
-    if (!file.type.startsWith('image/')) return reject(new Error('Súbor nie je obrázok.'))
+    if (!file.type.startsWith('image/')) return reject(new Error('The file is not an image.'))
     const url = URL.createObjectURL(file)
     const img = new Image()
     img.onload = () => {
@@ -38,7 +38,7 @@ function readImage(file) {
     }
     img.onerror = () => {
       URL.revokeObjectURL(url)
-      reject(new Error('Obrázok sa nepodarilo načítať.'))
+      reject(new Error('The image could not be loaded.'))
     }
     img.src = url
   })
@@ -54,10 +54,10 @@ function ArticleForm({ initial, onDone }) {
   const submit = (e) => {
     e.preventDefault()
     const err = {}
-    if (!v.title.trim()) err.title = 'Zadaj názov článku.'
-    if (!v.category.trim()) err.category = 'Zadaj kategóriu.'
-    if (!v.excerpt.trim()) err.excerpt = 'Zadaj krátky úvod.'
-    if (!v.body.trim()) err.body = 'Zadaj text článku.'
+    if (!v.title.trim()) err.title = 'Enter the article title.'
+    if (!v.category.trim()) err.category = 'Enter a category.'
+    if (!v.excerpt.trim()) err.excerpt = 'Enter a short intro.'
+    if (!v.body.trim()) err.body = 'Enter the article text.'
     setErrors(err)
     const first = Object.keys(err)[0]
     if (first) return document.getElementById(`a-${first}`)?.focus()
@@ -65,7 +65,7 @@ function ArticleForm({ initial, onDone }) {
       { title: v.title.trim(), category: v.category.trim(), excerpt: v.excerpt.trim(), body: v.body.trim(), cover: v.cover },
       initial?.slug,
     )
-    toast(editing ? 'Zmeny sú uložené.' : 'Článok je vytvorený.', saved && { to: `/blog/${saved.slug}`, label: 'Zobraziť' })
+    toast(editing ? 'Changes saved.' : 'Article created.', saved && { to: `/blog/${saved.slug}`, label: 'View' })
     onDone()
   }
 
@@ -100,15 +100,15 @@ function ArticleForm({ initial, onDone }) {
   )
 
   return (
-    <form className="form-card" onSubmit={submit} noValidate aria-label={editing ? 'Úprava článku' : 'Nový článok'}>
-      <h2>{editing ? 'Upraviť článok' : 'Nový článok'}</h2>
-      {text('title', 'Názov', { maxLength: 120 })}
-      {text('category', 'Kategória', { maxLength: 40, placeholder: 'Napr. Životný štýl' })}
-      {text('excerpt', 'Krátky úvod', { rows: 3, maxLength: 300 })}
-      {text('body', 'Celý text', { rows: 12, hint: 'Odseky oddeľ prázdnym riadkom. Text sa zobrazí ako obyčajný text, HTML sa nevykonáva.' })}
+    <form className="form-card" onSubmit={submit} noValidate aria-label={editing ? 'Edit article' : 'New article'}>
+      <h2>{editing ? 'Edit article' : 'New article'}</h2>
+      {text('title', 'Title', { maxLength: 120 })}
+      {text('category', 'Category', { maxLength: 40, placeholder: 'E.g. Lifestyle' })}
+      {text('excerpt', 'Short intro', { rows: 3, maxLength: 300 })}
+      {text('body', 'Full text', { rows: 12, hint: 'Separate paragraphs with an empty line. Text is shown as plain text; HTML is not executed.' })}
 
       <fieldset className="cover-picker">
-        <legend>Titulný obrázok</legend>
+        <legend>Cover image</legend>
         <div className="cover-options">
           {COVER_PRESETS.map((c) => (
             <label key={c.id} className={v.cover === c.id ? 'is-on' : ''}>
@@ -121,12 +121,12 @@ function ArticleForm({ initial, onDone }) {
             <label className="is-on">
               <input type="radio" name="cover" checked readOnly />
               <Cover cover={v.cover} />
-              <span>Vlastný obrázok</span>
+              <span>Custom image</span>
             </label>
           )}
         </div>
         <label className="btn btn-ghost btn-small upload">
-          Nahrať vlastný obrázok
+          Upload custom image
           <input type="file" accept="image/*" onChange={upload} className="sr-only" />
         </label>
         {errors.cover && (
@@ -138,10 +138,10 @@ function ArticleForm({ initial, onDone }) {
 
       <div className="form-actions">
         <button type="submit" className="btn">
-          {editing ? 'Uložiť zmeny' : 'Vytvoriť článok'}
+          {editing ? 'Save changes' : 'Create article'}
         </button>
         <button type="button" className="btn btn-ghost" onClick={onDone}>
-          Zrušiť
+          Cancel
         </button>
       </div>
     </form>
@@ -162,22 +162,22 @@ function Articles() {
     <div>
       <div className="admin-bar">
         <button type="button" className="btn" onClick={() => setMode('new')}>
-          + Nový článok
+          + New article
         </button>
         <button
           type="button"
           className="text-link"
           onClick={() => {
             resetArticles()
-            toast('Pôvodné tri články sú obnovené.')
+            toast('The original three articles have been restored.')
           }}
         >
-          Obnoviť pôvodné články
+          Restore original articles
         </button>
       </div>
       {!articles.length && (
         <div className="empty-inline">
-          <p>Žiadne články. Vytvor prvý alebo obnov pôvodné.</p>
+          <p>No articles. Create the first one or restore the originals.</p>
         </div>
       )}
       <ul className="admin-list">
@@ -191,30 +191,30 @@ function Articles() {
               </p>
             </div>
             {confirm === a.slug ? (
-              <div className="confirm-inline" role="alertdialog" aria-label={`Potvrdenie odstránenia článku ${a.title}`}>
-                <span>Naozaj odstrániť?</span>
+              <div className="confirm-inline" role="alertdialog" aria-label={`Confirm deleting article ${a.title}`}>
+                <span>Really delete?</span>
                 <button
                   type="button"
                   className="btn btn-small btn-danger"
                   onClick={() => {
                     deleteArticle(a.slug)
                     setConfirm(null)
-                    toast('Článok je odstránený.')
+                    toast('Article deleted.')
                   }}
                 >
-                  Áno, odstrániť
+                  Yes, delete
                 </button>
                 <button type="button" className="btn btn-small btn-ghost" onClick={() => setConfirm(null)}>
-                  Nie
+                  No
                 </button>
               </div>
             ) : (
               <div className="admin-item-actions">
                 <button type="button" className="btn btn-small btn-ghost" onClick={() => setMode(a.slug)}>
-                  Upraviť
+                  Edit
                 </button>
                 <button type="button" className="btn btn-small btn-ghost danger" onClick={() => setConfirm(a.slug)}>
-                  Odstrániť
+                  Delete
                 </button>
               </div>
             )}
@@ -230,14 +230,14 @@ function Orders() {
   if (!orders.length)
     return (
       <div className="empty-inline">
-        <h2>Žiadne objednávky</h2>
-        <p>Nová objednávka sa tu objaví hneď po dokončení nákupu.</p>
+        <h2>No orders</h2>
+        <p>A new order will appear here as soon as a purchase is completed.</p>
         <div className="empty-actions">
           <Link className="btn" to="/shop">
-            Do obchodu
+            Go to shop
           </Link>
           <button type="button" className="btn btn-ghost" onClick={resetOrders}>
-            Načítať testovacie objednávky
+            Load test orders
           </button>
         </div>
       </div>
@@ -246,7 +246,7 @@ function Orders() {
   return (
     <>
       <div className="admin-bar">
-        <ul className="status-summary" aria-label="Počet objednávok podľa stavu">
+        <ul className="status-summary" aria-label="Orders by status">
           {counts.map(([st, n], i) => (
             <li key={st} data-status={i}>
               <b>{n}</b> {st}
@@ -258,10 +258,10 @@ function Orders() {
           className="text-link"
           onClick={() => {
             resetOrders()
-            toast('Testovacie objednávky sú obnovené.')
+            toast('Test orders have been restored.')
           }}
         >
-          Obnoviť testovacie objednávky
+          Restore test orders
         </button>
       </div>
     <ul className="order-list">
@@ -273,12 +273,12 @@ function Orders() {
                 {o.id} {o.test && <span className="tag tag-ned">test</span>}
               </h3>
               <p className="muted">
-                Vytvorená{' '}
-                {new Date(o.createdAt).toLocaleString('sk-SK', { dateStyle: 'medium', timeStyle: 'short' })}
+                Created{' '}
+                {new Date(o.createdAt).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}
               </p>
             </div>
             <div className="field status-field">
-              <label htmlFor={`st-${o.id}`}>Stav</label>
+              <label htmlFor={`st-${o.id}`}>Status</label>
               <select
                 id={`st-${o.id}`}
                 value={o.status}
@@ -296,7 +296,7 @@ function Orders() {
           </header>
           <dl className="order-meta">
             <div>
-              <dt>Meno</dt>
+              <dt>Name</dt>
               <dd>{o.name}</dd>
             </div>
             <div>
@@ -304,16 +304,16 @@ function Orders() {
               <dd>{o.email}</dd>
             </div>
             <div>
-              <dt>Termín odberu</dt>
+              <dt>Pickup date</dt>
               <dd>{formatDate(o.pickup)}</dd>
             </div>
             <div>
-              <dt>Spolu</dt>
+              <dt>Total</dt>
               <dd>{money(o.total)}</dd>
             </div>
           </dl>
           <details>
-            <summary>Položky ({o.items.length})</summary>
+            <summary>Items ({o.items.length})</summary>
             <OrderItems order={o} />
           </details>
         </li>
@@ -323,8 +323,8 @@ function Orders() {
   )
 }
 
-// Prihlásenie do administrácie. Overenie prebieha v prehliadači (web nemá backend),
-// heslo je uložené len ako SHA-256 hash a relácia platí do zatvorenia karty.
+// Admin login. Verification happens in the browser (the site has no backend),
+// the password is stored only as a SHA-256 hash and the session lasts until the tab is closed.
 const ADMIN_USER = 'admin'
 const ADMIN_HASH = '5f803048e654ca84ee8b1886c4fcebeb2ed04a8e5f47e2c88b6e7242a9ff3c5c'
 const SESSION_KEY = 'recan.admin.session'
@@ -354,11 +354,11 @@ function Login({ onLogin }) {
   const submit = async (e) => {
     e.preventDefault()
     if (Date.now() < lockedUntil) {
-      setError(`Príliš veľa pokusov. Skús to znova o ${Math.ceil((lockedUntil - Date.now()) / 1000)} s.`)
+      setError(`Too many attempts. Try again in ${Math.ceil((lockedUntil - Date.now()) / 1000)} s.`)
       return
     }
     if (!user.trim() || !pass) {
-      setError('Zadaj používateľské meno aj heslo.')
+      setError('Enter both username and password.')
       return
     }
     setBusy(true)
@@ -366,7 +366,7 @@ function Login({ onLogin }) {
     try {
       ok = user.trim().toLowerCase() === ADMIN_USER && (await sha256(pass)) === ADMIN_HASH
     } catch {
-      setError('Prihlásenie vyžaduje zabezpečené pripojenie (https).')
+      setError('Login requires a secure connection (https).')
       setBusy(false)
       return
     }
@@ -375,7 +375,7 @@ function Login({ onLogin }) {
       try {
         sessionStorage.setItem(SESSION_KEY, ADMIN_USER)
       } catch {
-        /* relácia ostane aspoň v pamäti */
+        /* session stays in memory */
       }
       onLogin()
       return
@@ -385,10 +385,10 @@ function Login({ onLogin }) {
     if (n >= MAX_ATTEMPTS) {
       setAttempts(0)
       setLockedUntil(Date.now() + LOCK_MS)
-      setError('Príliš veľa nesprávnych pokusov. Prihlásenie je na 30 sekúnd zablokované.')
+      setError('Too many incorrect attempts. Login is locked for 30 seconds.')
     } else {
       setAttempts(n)
-      setError(`Nesprávne meno alebo heslo. Zostáva pokusov: ${MAX_ATTEMPTS - n}.`)
+      setError(`Incorrect username or password. Attempts left: ${MAX_ATTEMPTS - n}.`)
     }
   }
 
@@ -396,14 +396,14 @@ function Login({ onLogin }) {
     <div className="wrap login-wrap">
       <form className="form-card login-card" onSubmit={submit} noValidate aria-labelledby="login-title">
         <p className="eyebrow">RE:CAN</p>
-        <h1 id="login-title">Administrácia</h1>
-        <p className="muted">Prihlás sa, aby si mohol spravovať objednávky a články.</p>
+        <h1 id="login-title">Admin</h1>
+        <p className="muted">Log in to manage orders and articles.</p>
         <div className={`field ${error ? 'has-error' : ''}`}>
-          <label htmlFor="login-user">Používateľské meno</label>
+          <label htmlFor="login-user">Username</label>
           <input id="login-user" autoComplete="username" value={user} onChange={(e) => setUser(e.target.value)} />
         </div>
         <div className={`field ${error ? 'has-error' : ''}`}>
-          <label htmlFor="login-pass">Heslo</label>
+          <label htmlFor="login-pass">Password</label>
           <input
             id="login-pass"
             type="password"
@@ -418,7 +418,7 @@ function Login({ onLogin }) {
           </p>
         )}
         <button type="submit" className="btn btn-block" disabled={busy}>
-          {busy ? 'Overujem…' : 'Prihlásiť sa'}
+          {busy ? 'Checking…' : 'Log in'}
         </button>
       </form>
     </div>
@@ -427,16 +427,16 @@ function Login({ onLogin }) {
 
 export default function Admin() {
   const [authed, setAuthed] = useState(readSession)
-  useSeo({ title: 'Administrácia', noindex: true })
+  useSeo({ title: 'Admin', noindex: true })
   if (!authed) return <Login onLogin={() => setAuthed(true)} />
   const logout = () => {
     try {
       sessionStorage.removeItem(SESSION_KEY)
     } catch {
-      /* nič */
+      /* nothing */
     }
     setAuthed(false)
-    toast('Bol si odhlásený.')
+    toast('You have been logged out.')
   }
   return <Dashboard onLogout={logout} />
 }
@@ -449,23 +449,23 @@ function Dashboard({ onLogout }) {
     <>
       <div className="page-head wrap admin-head">
         <div>
-          <p className="eyebrow">RE:CAN · prihlásený ako admin</p>
-          <h1>Administrácia</h1>
+          <p className="eyebrow">RE:CAN · logged in as admin</p>
+          <h1>Admin</h1>
           <p className="lead">
-            {orders.length} objednávok, z toho {open} nevybavených.
+            {orders.length} orders, {open} of them open.
           </p>
         </div>
         <button type="button" className="btn btn-ghost btn-small" onClick={onLogout}>
-          Odhlásiť sa
+          Log out
         </button>
       </div>
       <div className="wrap section-tight">
-        <div className="tabs" role="tablist" aria-label="Sekcie administrácie">
+        <div className="tabs" role="tablist" aria-label="Admin sections">
           <button type="button" role="tab" aria-selected={tab === 'orders'} onClick={() => setTab('orders')}>
-            Objednávky ({orders.length})
+            Orders ({orders.length})
           </button>
           <button type="button" role="tab" aria-selected={tab === 'articles'} onClick={() => setTab('articles')}>
-            Články
+            Articles
           </button>
         </div>
         <div role="tabpanel">{tab === 'articles' ? <Articles /> : <Orders />}</div>

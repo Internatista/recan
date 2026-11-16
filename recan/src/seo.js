@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 const SITE = 'RE:CAN'
 const DEFAULT_TITLE = 'RE:CAN – Good drink. Second life.'
 const DEFAULT_DESC =
-  'RE:CAN – ovocné nápoje s elektrolytmi v plechovke, ktorá dostane druhý život. Objednaj online, vyzdvihni osobne, plechovku vráť na refill.'
+  'RE:CAN – fruit drinks with electrolytes in a can that gets a second life. Order online, collect in person, return the can for a refill.'
 
 function setMeta(attr, key, content) {
   let el = document.head.querySelector(`meta[${attr}="${key}"]`)
@@ -25,7 +25,7 @@ function setCanonical(href) {
   el.setAttribute('href', href)
 }
 
-// Nastaví title, description, canonical, Open Graph a voliteľne štruktúrované dáta pre aktuálnu stránku.
+// Sets title, description, canonical, Open Graph and optional structured data for the current page.
 export function useSeo({ title, description = DEFAULT_DESC, noindex = false, jsonLd = null, image } = {}) {
   const ld = jsonLd ? JSON.stringify(jsonLd) : ''
   useEffect(() => {

@@ -18,20 +18,20 @@ import {
 import { PageHead, QtyStepper, NotFound } from '../components/ui'
 import { useSeo } from '../seo'
 
-function EmptyCart({ title = 'Košík je prázdny' }) {
+function EmptyCart({ title = 'Your cart is empty' }) {
   return (
     <div className="empty wrap">
       <div className="empty-art" aria-hidden="true">
         :
       </div>
       <h1>{title}</h1>
-      <p>Nie je v ňom žiadna plechovka. Vyber si príchuť alebo si namiešaj trojbalíček.</p>
+      <p>There are no cans in it yet. Pick a flavour or build a three-pack.</p>
       <div className="empty-actions">
         <Link className="btn" to="/shop">
-          Do obchodu
+          Go to shop
         </Link>
-        <Link className="btn btn-ghost" to="/trojbalicek">
-          Trojbalíček
+        <Link className="btn btn-ghost" to="/bundle">
+          Three-pack
         </Link>
       </div>
     </div>
@@ -42,21 +42,21 @@ function Totals({ t }) {
   return (
     <dl className="totals">
       <div>
-        <dt>Medzisúčet ({cansLabel(t.cans)})</dt>
+        <dt>Subtotal ({cansLabel(t.cans)})</dt>
         <dd>{money(t.subtotal)}</dd>
       </div>
       {t.discount > 0 && (
         <div className="discount">
-          <dt>Zľava na trojbalíček (−{BUNDLE_DISCOUNT_PCT} %)</dt>
+          <dt>Three-pack discount (−{BUNDLE_DISCOUNT_PCT}%)</dt>
           <dd>−{money(t.discount)}</dd>
         </div>
       )}
       <div>
-        <dt>Osobný odber</dt>
-        <dd>Zdarma</dd>
+        <dt>Pickup</dt>
+        <dd>Free</dd>
       </div>
       <div className="grand">
-        <dt>Spolu</dt>
+        <dt>Total</dt>
         <dd data-testid="total">{money(t.total)}</dd>
       </div>
     </dl>
@@ -66,12 +66,12 @@ function Totals({ t }) {
 export function Cart() {
   const lines = useStore(cartStore)
   const t = cartTotals(lines)
-  useSeo({ title: 'Košík', noindex: true })
+  useSeo({ title: 'Cart', noindex: true })
   if (!t.rows.length) return <EmptyCart />
 
   return (
     <>
-      <PageHead eyebrow="Krok 1 z 2" title="Košík" />
+      <PageHead eyebrow="Step 1 of 2" title="Cart" />
       <div className="wrap section-tight checkout-layout">
         <ul className="cart-list">
           {t.rows.map((r) => (
@@ -86,42 +86,42 @@ export function Cart() {
               <div className="cart-main">
                 <h2>
                   {r.type === 'single' ? <Link to={`/products/${r.slug}`}>{r.title}</Link> : r.title}
-                  {r.type === 'bundle' && <span className="tag tag-sale">−{BUNDLE_DISCOUNT_PCT} % balíček</span>}
+                  {r.type === 'bundle' && <span className="tag tag-sale">−{BUNDLE_DISCOUNT_PCT}% pack</span>}
                 </h2>
                 <p className="muted">{r.detail}</p>
                 <p className="unit">
                   {r.unitOriginal !== r.unit && <s>{money(r.unitOriginal)}</s>} {money(r.unit)}{' '}
-                  <small>/ {r.type === 'bundle' ? 'balíček' : 'kus'}</small>
+                  <small>/ {r.type === 'bundle' ? 'pack' : 'can'}</small>
                 </p>
               </div>
               <div className="cart-controls">
-                <QtyStepper value={r.qty} onChange={(q) => setQty(r.id, q)} label={`Množstvo: ${r.title} ${r.detail}`} />
+                <QtyStepper value={r.qty} onChange={(q) => setQty(r.id, q)} label={`Quantity: ${r.title} ${r.detail}`} />
                 <strong className="line-total">{money(r.total)}</strong>
                 <button
                   type="button"
                   className="text-link danger"
                   onClick={() => {
                     removeLine(r.id)
-                    toast(`${r.title} bol odstránený z košíka.`)
+                    toast(`${r.title} was removed from the cart.`)
                   }}
-                  aria-label={`Odstrániť ${r.title} ${r.detail} z košíka`}
+                  aria-label={`Remove ${r.title} ${r.detail} from cart`}
                 >
-                  Odstrániť
+                  Remove
                 </button>
               </div>
             </li>
           ))}
         </ul>
-        <aside className="summary" aria-label="Súhrn košíka">
-          <h2>Súhrn</h2>
+        <aside className="summary" aria-label="Cart summary">
+          <h2>Summary</h2>
           <Totals t={t} />
           <Link className="btn btn-block" to="/checkout">
-            Pokračovať k objednávke
+            Proceed to checkout
           </Link>
           <Link className="btn btn-ghost btn-block" to="/shop">
-            Pokračovať v nákupe
+            Continue shopping
           </Link>
-          <p className="note">Platíš až pri prevzatí, hotovosťou alebo kartou.</p>
+          <p className="note">You pay only on collection, in cash or by card.</p>
         </aside>
       </div>
     </>
@@ -132,12 +132,12 @@ const emailOk = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)
 
 function validate(v) {
   const e = {}
-  if (v.name.trim().length < 2) e.name = 'Zadaj meno (aspoň 2 znaky).'
-  if (!v.email.trim()) e.email = 'Zadaj e-mail.'
-  else if (!emailOk(v.email.trim())) e.email = 'E-mail nemá správny tvar, napríklad meno@priklad.sk.'
-  if (!v.pickup) e.pickup = 'Vyber dátum osobného odberu.'
-  else if (!/^\d{4}-\d{2}-\d{2}$/.test(v.pickup) || Number.isNaN(new Date(v.pickup).getTime())) e.pickup = 'Dátum nie je platný.'
-  else if (v.pickup < todayISO()) e.pickup = 'Dátum odberu nemôže byť v minulosti.'
+  if (v.name.trim().length < 2) e.name = 'Enter your name (at least 2 characters).'
+  if (!v.email.trim()) e.email = 'Enter your e-mail.'
+  else if (!emailOk(v.email.trim())) e.email = 'The e-mail format is not valid, for example name@example.com.'
+  if (!v.pickup) e.pickup = 'Choose a pickup date.'
+  else if (!/^\d{4}-\d{2}-\d{2}$/.test(v.pickup) || Number.isNaN(new Date(v.pickup).getTime())) e.pickup = 'The date is not valid.'
+  else if (v.pickup < todayISO()) e.pickup = 'The pickup date cannot be in the past.'
   return e
 }
 
@@ -165,12 +165,12 @@ export function Checkout() {
   const lines = useStore(cartStore)
   const t = cartTotals(lines)
   const navigate = useNavigate()
-  useSeo({ title: 'Dokončenie objednávky', noindex: true })
+  useSeo({ title: 'Checkout', noindex: true })
   const [values, setValues] = useState({ name: '', email: '', pickup: '' })
   const [touched, setTouched] = useState({})
   const [submitted, setSubmitted] = useState(false)
 
-  if (!t.rows.length) return <EmptyCart title="Nie je čo objednať" />
+  if (!t.rows.length) return <EmptyCart title="Nothing to order" />
 
   const errors = validate(values)
   const show = (k) => (submitted || touched[k] ? errors[k] : undefined)
@@ -190,34 +190,34 @@ export function Checkout() {
       return
     }
     const order = createOrder({ name: values.name.trim(), email: values.email.trim(), pickup: values.pickup })
-    if (order) navigate(`/objednavka/${order.id}`, { replace: true })
+    if (order) navigate(`/order/${order.id}`, { replace: true })
   }
 
   return (
     <>
-      <PageHead eyebrow="Krok 2 z 2" title="Dokončenie objednávky" />
+      <PageHead eyebrow="Step 2 of 2" title="Checkout" />
       <div className="wrap section-tight checkout-layout">
         <form className="form-card" onSubmit={submit} noValidate>
-          <h2>Kontaktné údaje a odber</h2>
-          <Field id="name" label="Meno" autoComplete="name" placeholder="Meno a priezvisko" {...bind('name')} />
-          <Field id="email" label="E-mail" type="email" inputMode="email" autoComplete="email" placeholder="meno@priklad.sk" {...bind('email')} />
+          <h2>Contact details and pickup</h2>
+          <Field id="name" label="Name" autoComplete="name" placeholder="First and last name" {...bind('name')} />
+          <Field id="email" label="E-mail" type="email" inputMode="email" autoComplete="email" placeholder="name@example.com" {...bind('email')} />
           <Field
             id="pickup"
-            label="Dátum osobného odberu"
+            label="Pickup date"
             type="date"
             min={todayISO()}
             hint={`${pickupPoint.name}, ${pickupPoint.hours}. ${pickupPoint.payment}.`}
             {...bind('pickup')}
           />
           <button type="submit" className="btn btn-block">
-            Objednať s platbou pri odbere · {money(t.total)}
+            Order and pay on pickup · {money(t.total)}
           </button>
           <Link className="text-link" to="/cart">
-            ← Späť do košíka
+            ← Back to cart
           </Link>
         </form>
-        <aside className="summary" aria-label="Zhrnutie objednávky">
-          <h2>Zhrnutie</h2>
+        <aside className="summary" aria-label="Order summary">
+          <h2>Summary</h2>
           <ul className="mini-list">
             {t.rows.map((r) => (
               <li key={r.id}>
@@ -258,34 +258,34 @@ export function OrderItems({ order }) {
 export function OrderConfirmation() {
   const { id } = useParams()
   const order = useStore(ordersStore).find((o) => o.id === id)
-  useSeo({ title: 'Objednávka prijatá', noindex: true })
+  useSeo({ title: 'Order received', noindex: true })
   if (!order)
-    return <NotFound title="Objednávku sme nenašli" text="Skontroluj číslo objednávky alebo pokračuj do obchodu." />
+    return <NotFound title="Order not found" text="Check the order number or continue to the shop." />
 
   return (
     <div className="wrap narrow confirm">
       <p className="confirm-badge" aria-hidden="true">
         ✓
       </p>
-      <p className="eyebrow">Objednávka prijatá</p>
-      <h1>Ďakujeme, {order.name}!</h1>
+      <p className="eyebrow">Order received</p>
+      <h1>Thank you, {order.name}!</h1>
       <p className="lead">
-        Číslo objednávky <b data-testid="order-id">{order.id}</b>. Termín osobného odberu: <b>{formatDate(order.pickup)}</b>.
+        Order number <b data-testid="order-id">{order.id}</b>. Pickup date: <b>{formatDate(order.pickup)}</b>.
       </p>
       <div className="form-card">
-        <h2>Súhrn objednávky</h2>
+        <h2>Order summary</h2>
         <OrderItems order={order} />
         <p className="note">
-          Objednávku si v zvolený deň prevezmeš na výdajnom mieste {pickupPoint.name} ({pickupPoint.hours}). Stačí povedať
-          číslo objednávky. {pickupPoint.payment}. Nezabudni priniesť prázdne plechovky na refill.
+          Collect your order on the chosen day at the {pickupPoint.name} pickup point ({pickupPoint.hours}). Just give us
+          your order number. {pickupPoint.payment}. Don't forget to bring your empty cans for a refill.
         </p>
       </div>
       <div className="empty-actions">
         <Link className="btn" to="/shop">
-          Späť do obchodu
+          Back to shop
         </Link>
         <Link className="btn btn-ghost" to="/refill">
-          Ako funguje refill
+          How refill works
         </Link>
       </div>
     </div>

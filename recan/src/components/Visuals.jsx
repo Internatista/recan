@@ -94,7 +94,7 @@ export function Fruit({ kind, style, className = '' }) {
   )
 }
 
-// Oblúk ihriska so sieťou – motív prevzatý z etikiet.
+// Court arc with net – a motif taken from the labels.
 export function NetArc({ className = '' }) {
   return (
     <svg className={`net-arc ${className}`} viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true" focusable="false">
@@ -119,7 +119,7 @@ const slots = [
   { x: 70, y: 76, w: 14, r: -24 },
 ]
 
-// Vizuál príchute: farebná plocha, ovocie, oblúk ihriska a (voliteľne) plechovka.
+// Flavour visual: colour field, fruit, court arc and (optionally) the can.
 export function Scene({ slug, withCan = true, alt = '', className = '' }) {
   const p = bySlug(slug)
   if (!p) return null
@@ -143,7 +143,7 @@ export function Scene({ slug, withCan = true, alt = '', className = '' }) {
   )
 }
 
-// Titulný obrázok článku: predvoľba (príchuť / všetky) alebo vlastný nahraný obrázok (data URL).
+// Article cover: a preset (flavour / all) or a custom uploaded image (data URL).
 export function Cover({ cover, alt = '', className = '' }) {
   if (typeof cover === 'string' && cover.startsWith('data:image/')) {
     return <img className={`cover cover-photo ${className}`} src={cover} alt={alt} />

@@ -6,52 +6,53 @@ import { useSeo } from '../seo'
 
 export function Story() {
   useSeo({
-    title: 'Príbeh značky',
-    description: 'Ako vznikol RE:CAN, čo znamená názov a prečo stavíme na ovocné chute, aktívny život a plechovky s druhým životom.',
+    title: 'Brand story',
+    description: 'How RE:CAN started, what the name means and why we build on fruit flavours, an active life and cans with a second life.',
   })
   return (
     <>
-      <PageHead eyebrow="Príbeh značky" title="Prečo RE:CAN">
-        Ovocné chute, aktívny život a plechovka, ktorá nekončí v koši.
+      <PageHead eyebrow="Brand story" title="Why RE:CAN">
+        Fruit flavours, an active life and a can that does not end up in the bin.
       </PageHead>
       <div className="wrap narrow section-tight prose">
-        <Cover cover="all" alt="Štyri plechovky RE:CAN vedľa seba" className="article-cover" />
-        <h2>Ako značka vznikla</h2>
+        <Cover cover="all" alt="Four RE:CAN cans side by side" className="article-cover" />
+        <h2>How the brand started</h2>
         <p>
-          RE:CAN vznikol ako odpoveď na presladené, priemyselne vyrábané nápoje v jednorazových obaloch. Chceli sme funkčný
-          ovocný drink, ktorý chutí po ovocí, a obal, ktorý sa po dopití vráti späť do obehu.
+          RE:CAN started as an answer to oversweetened, industrially produced drinks in single-use packaging. We wanted a
+          functional fruit drink that actually tastes of fruit, and a can that goes back into circulation once it is empty.
         </p>
-        <h2>Čo spája</h2>
+        <h2>What it brings together</h2>
         <p>
-          Tri veci, ktoré sú nám blízke. Ovocné chute, pretože po nich siahame najčastejšie. Aktívny život, pretože nápoj berieme
-          na tréning, do školy aj von. A premýšľanie o obaloch, pretože najlepší obal je ten, ktorý netreba vyrobiť znova.
+          Three things that matter to us. Fruit flavours, because that is what we reach for most often. An active life,
+          because we take our drinks to training, to school and outdoors. And thinking about packaging, because the best
+          packaging is the one that does not need to be made again.
         </p>
-        <h2>Čo znamená názov</h2>
+        <h2>What the name means</h2>
         <p>
-          <b>RE</b> je predpona troch slov z etikety: refill, recharge, reuse. <b>CAN</b> je plechovka, ale po anglicky aj
-          „môžeš“. Dvojbodka medzi nimi je krátka pauza na rozhodnutie, čo s obalom ďalej.
+          <b>RE</b> is the prefix of three words from the label: refill, recharge, reuse. <b>CAN</b> is the can, but also
+          "you can". The colon between them is a short pause to decide what to do with the can next.
         </p>
-        <h2>Vízia a misia</h2>
+        <h2>Vision and mission</h2>
         <p>
-          Chceme byť značkou novej éry funkčných nápojov, v ktorej idú čerstvosť a udržateľnosť ruka v ruke. Našou misiou je
-          prinášať ľuďom každodenný „recharge“ z kvalitných surovín a v cirkulárnom systéme Refill – Reuse – Recharge, ktorý šetrí
-          prírodu aj peňaženku pri každom ďalšom naplnení.
+          We want to be a brand in a new era of functional drinks, where freshness and sustainability go hand in hand. Our
+          mission is to give people an everyday "recharge" made from quality ingredients, within a circular Refill – Reuse –
+          Recharge system that saves both nature and your wallet with every refill.
         </p>
-        <h2>Slogany</h2>
+        <h2>Slogans</h2>
         <ul>
           <li>
-            <b>Good drink. Second life.</b> Najprv chuť, potom druhý život obalu. V tomto poradí.
+            <b>Good drink. Second life.</b> First the taste, then the can's second life. In that order.
           </li>
           <li>
-            <b>Refill. Recharge. Reuse.</b> Doplniť, nabrať silu, znovu využiť. Tri slová, ktoré sú na každej plechovke.
+            <b>Refill. Recharge. Reuse.</b> Fill up, get your energy back, use again. Three words printed on every can.
           </li>
         </ul>
         <p>
           <Link className="btn" to="/shop">
-            Pozrieť príchute
+            See the flavours
           </Link>{' '}
           <Link className="btn btn-ghost" to="/refill">
-            Ako funguje refill
+            How refill works
           </Link>
         </p>
       </div>
@@ -61,13 +62,13 @@ export function Story() {
 
 export function Refill() {
   useSeo({
-    title: 'Refill – vráť plechovku, ďalšie naplnenie so zľavou',
-    description: 'Prines prázdnu plechovku RE:CAN späť. Vyčistíme ju, naplníme, nanovo uzavrieme a ďalší nápoj máš so zľavou.',
+    title: 'Refill – return your can, get your next refill discounted',
+    description: 'Bring your empty RE:CAN can back. We clean it, refill it, seal it again and your next drink is discounted.',
   })
   return (
     <>
-      <PageHead eyebrow="Refill" title="Vyber. Vychutnaj. Vráť.">
-        Keď dopiješ, plechovku nevyhadzuj. Prines ju späť a ďalšie naplnenie máš so zľavou.
+      <PageHead eyebrow="Refill" title="Choose. Enjoy. Return.">
+        When you finish your drink, don't throw the can away. Bring it back and your next refill is discounted.
       </PageHead>
       <div className="wrap section-tight">
         <Steps items={refillSteps} />
@@ -75,36 +76,36 @@ export function Refill() {
       <div className="wrap narrow section-tight">
         <div className="compare">
           <div>
-            <h2>Čo získaš ty</h2>
+            <h2>What you get</h2>
             <ul>
-              <li>Zľavu na každé ďalšie naplnenie vrátenej plechovky.</li>
-              <li>Čerstvo naplnený a uzavretý nápoj.</li>
-              <li>Menej odpadu doma aj v taške.</li>
+              <li>A discount on every refill of a returned can.</li>
+              <li>A freshly filled and sealed drink.</li>
+              <li>Less waste at home and in your bag.</li>
             </ul>
           </div>
           <div>
-            <h2>Čo robíme my</h2>
+            <h2>What we do</h2>
             <ul>
-              <li>Vrátenú plechovku skontrolujeme a vyčistíme.</li>
-              <li>Naplníme ju tvojou príchuťou.</li>
-              <li>Zalisujeme nový vrchnák, aby bola opäť hermeticky uzavretá.</li>
+              <li>We check and clean the returned can.</li>
+              <li>We fill it with your chosen flavour.</li>
+              <li>We press on a new lid so it is hermetically sealed again.</li>
             </ul>
           </div>
         </div>
         <div className="prose">
-          <h2>Kde plechovku vrátiš</h2>
+          <h2>Where to return your can</h2>
           <p>
-            Prázdnu plechovku prines pri najbližšom osobnom odbere na výdajné miesto {pickupPoint.name} ({pickupPoint.hours}).
-            Zľavu za refill ti odpočítame priamo pri prevzatí objednávky.
+            Bring your empty can with your next pickup to the {pickupPoint.name} pickup point ({pickupPoint.hours}). We deduct
+            the refill discount right when you collect your order.
           </p>
-          <h2>Prečo to robíme</h2>
+          <h2>Why we do it</h2>
           <p>
-            Najlepší obal je ten, ktorý netreba vyrobiť znova. Hliníková plechovka je odolná a dá sa používať opakovane, preto
-            sme okolo nej postavili celý systém Refill – Reuse – Recharge.
+            The best packaging is the one that does not need to be made again. An aluminium can is durable and can be used
+            again and again, so we built the whole Refill – Reuse – Recharge system around it.
           </p>
           <p>
-            <Link className="text-link" to="/blog/co-pre-nas-znamena-refill">
-              Článok: Čo pre nás znamená refill →
+            <Link className="text-link" to="/blog/what-refill-means-to-us">
+              Article: What refill means to us →
             </Link>
           </p>
         </div>

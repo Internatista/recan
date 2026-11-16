@@ -9,23 +9,23 @@ import BundleBuilder from '../components/BundleBuilder'
 
 export function Shop() {
   useSeo({
-    title: 'Obchod – ovocné nápoje s elektrolytmi',
-    description: `Citrus Charge, Watermelon Lime, Tropical a Berry Blast. Ovocné nápoje s elektrolytmi za ${money(PRICE)}, osobný odber zdarma.`,
+    title: 'Shop – fruit drinks with electrolytes',
+    description: `Citrus Charge, Watermelon Lime, Tropical and Berry Blast. Fruit drinks with electrolytes for ${money(PRICE)}, free pickup.`,
   })
   return (
     <>
-      <PageHead eyebrow={COLLECTION} title="Obchod">
-        Štyri ovocné príchute s elektrolytmi. Každá za {money(PRICE)}, osobný odber zdarma.
+      <PageHead eyebrow={COLLECTION} title="Shop">
+        Four fruit flavours with electrolytes. {money(PRICE)} each, free pickup.
       </PageHead>
       <div className="wrap section-tight">
         <ProductGrid />
         <div className="promo">
           <div>
-            <h2>Nevieš si vybrať?</h2>
-            <p>Namiešaj si trojbalíček z troch rôznych príchutí so zľavou {BUNDLE_DISCOUNT_PCT} %.</p>
+            <h2>Can't decide?</h2>
+            <p>Build a three-pack of three different flavours with {BUNDLE_DISCOUNT_PCT}% off.</p>
           </div>
-          <Link className="btn btn-cream" to="/trojbalicek">
-            Namiešať trojbalíček
+          <Link className="btn btn-cream" to="/bundle">
+            Build a three-pack
           </Link>
         </div>
       </div>
@@ -35,13 +35,13 @@ export function Shop() {
 
 export function BundlePage() {
   useSeo({
-    title: 'Trojbalíček so zľavou 10 %',
-    description: 'Namiešaj si trojbalíček z troch rôznych príchutí RE:CAN a ušetri 10 %. Osobný odber zdarma.',
+    title: 'Three-pack with 10% off',
+    description: 'Build a three-pack of three different RE:CAN flavours and save 10%. Free pickup.',
   })
   return (
     <>
-      <PageHead eyebrow={`Trojbalíček · −${BUNDLE_DISCOUNT_PCT} %`} title="Namiešaj si trojbalíček">
-        Vyber tri rôzne príchute zo štyroch. Zľava {BUNDLE_DISCOUNT_PCT} % platí len na balíček, nie na samostatne pridané kusy.
+      <PageHead eyebrow={`Three-pack · −${BUNDLE_DISCOUNT_PCT}%`} title="Build your three-pack">
+        Choose three different flavours out of four. The {BUNDLE_DISCOUNT_PCT}% discount applies to the pack only, not to cans added separately.
       </PageHead>
       <div className="wrap section-tight">
         <BundleBuilder />
@@ -61,7 +61,7 @@ export function Product() {
     p
       ? {
           title: `${p.name} – ${p.flavor}`,
-          description: `${p.name}: ${p.short} Plechovka ${VOLUME} za ${money(PRICE)}, osobný odber zdarma.`,
+          description: `${p.name}: ${p.short} ${VOLUME} can for ${money(PRICE)}, free pickup.`,
           image: p.img,
           jsonLd: {
             '@context': 'https://schema.org',
@@ -80,22 +80,22 @@ export function Product() {
             },
           },
         }
-      : { title: 'Produkt sa nenašiel', noindex: true },
+      : { title: 'Product not found', noindex: true },
   )
 
-  if (!p) return <NotFound title="Tento produkt nemáme" text="V ponuke sú štyri príchute. Nájdeš ich v obchode." />
+  if (!p) return <NotFound title="We don't have this product" text="We offer four flavours. You will find them in the shop." />
 
   const add = () => {
     addSingle(p.slug, qty)
-    addedToast(`${qty}× ${p.name} je v košíku.`)
+    addedToast(`${qty}× ${p.name} added to cart.`)
   }
   const others = products.filter((x) => x.slug !== p.slug)
 
   return (
     <div className="product-page" style={{ '--c': p.color, '--soft': p.soft }}>
       <div className="wrap">
-        <nav className="crumbs" aria-label="Omrvinková navigácia">
-          <Link to="/shop">Obchod</Link> <span aria-hidden="true">/</span> <span aria-current="page">{p.name}</span>
+        <nav className="crumbs" aria-label="Breadcrumb">
+          <Link to="/shop">Shop</Link> <span aria-hidden="true">/</span> <span aria-current="page">{p.name}</span>
         </nav>
         <div className="product-layout">
           <Gallery key={p.slug} product={p} />
@@ -105,13 +105,13 @@ export function Product() {
             <h1>{p.name}</h1>
             <p className="product-flavor">{p.flavor}</p>
             <p className="product-price">
-              {money(PRICE)} <small>/ kus · {VOLUME}</small>
+              {money(PRICE)} <small>/ can · {VOLUME}</small>
             </p>
             <p>{p.description}</p>
             <p className="muted">{p.moment}</p>
 
-            <div className="switcher" role="group" aria-label="Prepnúť príchuť">
-              <span className="switcher-label">Príchuť</span>
+            <div className="switcher" role="group" aria-label="Switch flavour">
+              <span className="switcher-label">Flavour</span>
               <div>
                 {products.map((x) => (
                   <Link
@@ -129,9 +129,9 @@ export function Product() {
             </div>
 
             <div className="buy-row">
-              <QtyStepper value={qty} onChange={setQty} label={`Množstvo: ${p.name}`} />
+              <QtyStepper value={qty} onChange={setQty} label={`Quantity: ${p.name}`} />
               <button type="button" className="btn" onClick={add}>
-                Pridať do košíka · {money(PRICE * qty)}
+                Add to cart · {money(PRICE * qty)}
               </button>
             </div>
             <button
@@ -142,34 +142,34 @@ export function Product() {
                 navigate('/checkout')
               }}
             >
-              Pridať a pokračovať k objednávke
+              Add and go to checkout
             </button>
             <p className="note">
-              Osobný odber zdarma. Dátum si zvolíš v objednávke a platíš až pri prevzatí.
+              Free pickup. Choose the date at checkout and pay only on collection.
             </p>
           </div>
         </div>
 
         <div className="product-details">
           <section aria-labelledby="pd-info">
-            <h2 id="pd-info">O produkte</h2>
+            <h2 id="pd-info">About the product</h2>
             <p>
-              {p.name} patrí do kolekcie {COLLECTION}. {p.character}: {p.flavor.toLowerCase()}. Nesýtený ovocný nápoj s
-              elektrolytmi v plechovke s objemom {VOLUME}.
+              {p.name} is part of the {COLLECTION} collection. {p.character}: {p.flavor.toLowerCase()}. A still fruit drink
+              with electrolytes in a {VOLUME} can.
             </p>
-            <p>Najlepšie chutí vychladený. {STORAGE}</p>
+            <p>Best served chilled. {STORAGE}</p>
           </section>
 
-          <section aria-labelledby="pd-zlozenie">
-            <h2 id="pd-zlozenie">Zloženie a výživové údaje</h2>
+          <section aria-labelledby="pd-ingredients">
+            <h2 id="pd-ingredients">Ingredients and nutrition</h2>
             <p className="ingredients">
-              <b>Zloženie:</b> {p.ingredients}
+              <b>Ingredients:</b> {p.ingredients}
             </p>
             <table className="facts">
-              <caption className="sr-only">Výživové údaje</caption>
+              <caption className="sr-only">Nutrition information</caption>
               <thead>
                 <tr>
-                  <th scope="col">Výživové údaje</th>
+                  <th scope="col">Nutrition</th>
                   <th scope="col">100 ml</th>
                   <th scope="col">{VOLUME}</th>
                 </tr>
@@ -185,30 +185,30 @@ export function Product() {
               </tbody>
             </table>
             <p className="ingredients">
-              <b>Alergény:</b> {ALLERGENS}
+              <b>Allergens:</b> {ALLERGENS}
             </p>
           </section>
 
-          <section aria-labelledby="pd-odber">
-            <h2 id="pd-odber">Odber a refill</h2>
+          <section aria-labelledby="pd-pickup">
+            <h2 id="pd-pickup">Pickup and refill</h2>
             <p>
-              <b>Osobný odber</b> je zdarma. V objednávke si zvolíš dátum a nákup si prevezmeš na výdajnom mieste{' '}
+              <b>Pickup</b> is free. Choose the date at checkout and collect your order at the pickup point{' '}
               {pickupPoint.name} ({pickupPoint.hours}). {pickupPoint.payment}.
             </p>
             <p>
-              <b>Refill</b> v troch krokoch:
+              <b>Refill</b> in three steps:
             </p>
             <Steps items={refillSteps} />
             <p>
               <Link className="text-link" to="/refill">
-                Viac o refille →
+                More about refill →
               </Link>
             </p>
           </section>
         </div>
 
-        <section className="section-tight" aria-labelledby="pd-dalsie">
-          <h2 id="pd-dalsie">Ďalšie príchute</h2>
+        <section className="section-tight" aria-labelledby="pd-more">
+          <h2 id="pd-more">Other flavours</h2>
           <ProductGrid list={others} />
         </section>
       </div>

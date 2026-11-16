@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// Adresa webu: SITE_URL, inak produkčná doména z Vercelu, inak lokálny náhľad.
+// Site address: SITE_URL, otherwise the Vercel production domain, otherwise the local preview.
 const SITE_URL = (
   process.env.SITE_URL ||
   (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'http://localhost:4173')
@@ -13,7 +13,7 @@ function seoFiles() {
     name: 'recan-seo-files',
     transformIndexHtml: { order: 'pre', handler: (html) => html.replaceAll('%SITE_URL%', SITE_URL) },
     generateBundle() {
-      // Slugy produktov a článkov čítame priamo zo zdrojových dát.
+      // Product and article slugs are read straight from the source data.
       const data = readFileSync(new URL('./src/data.js', import.meta.url), 'utf8')
       const slugs = [...data.matchAll(/slug: '([a-z0-9-]+)'/g)].map((m) => m[1])
       const productSection = data.slice(data.indexOf('export const products'), data.indexOf('export const bySlug'))
@@ -24,8 +24,8 @@ function seoFiles() {
         ['/', '1.0', 'weekly'],
         ['/shop', '0.9', 'weekly'],
         ...products.map((s) => [`/products/${s}`, '0.8', 'monthly']),
-        ['/trojbalicek', '0.7', 'monthly'],
-        ['/pribeh', '0.6', 'monthly'],
+        ['/bundle', '0.7', 'monthly'],
+        ['/story', '0.6', 'monthly'],
         ['/refill', '0.6', 'monthly'],
         ['/blog', '0.7', 'weekly'],
         ['/app/', '0.5', 'monthly'],
@@ -45,7 +45,7 @@ ${routes
       this.emitFile({
         type: 'asset',
         fileName: 'robots.txt',
-        source: `User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /cart\nDisallow: /checkout\nDisallow: /objednavka/\n\nSitemap: ${SITE_URL}/sitemap.xml\n`,
+        source: `User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /cart\nDisallow: /checkout\nDisallow: /order/\n\nSitemap: ${SITE_URL}/sitemap.xml\n`,
       })
     },
   }
