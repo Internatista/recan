@@ -7,12 +7,12 @@ import { useSeo } from '../seo'
 export function Blog() {
   const articles = sortedArticles(useStore(articlesStore))
   useSeo({
-    title: 'Journal – a blog about drinks, rituals and refill',
+    title: 'Blog – drinks, rituals and refill',
     description: 'RE:CAN articles about our brand story, everyday rituals and how can refill works.',
   })
   return (
     <>
-      <PageHead eyebrow="Journal" title="Reading with your can">
+      <PageHead eyebrow="Blog" title="Reading with your can">
         About the brand, small rituals and what we mean by the word refill.
       </PageHead>
       <div className="wrap section-tight">

@@ -12,7 +12,7 @@ const nav = [
   { to: '/bundle', label: 'Three-pack' },
   { to: '/story', label: 'Story' },
   { to: '/refill', label: 'Refill' },
-  { to: '/blog', label: 'Journal' },
+  { to: '/blog', label: 'Blog' },
 ]
 
 export function Logo({ light = false }) {
@@ -86,7 +86,7 @@ export function Footer() {
           <h2>Brand</h2>
           <Link to="/story">Story</Link>
           <Link to="/refill">Refill</Link>
-          <Link to="/blog">Journal</Link>
+          <Link to="/blog">Blog</Link>
           <Link to="/admin">Admin</Link>
         </div>
         <div>

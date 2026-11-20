@@ -156,7 +156,7 @@ export default function Home() {
       <section className="band band-cream" aria-labelledby="h-journal">
         <div className="wrap section">
           <div className="section-head">
-            <p className="eyebrow">Journal</p>
+            <p className="eyebrow">Blog</p>
             <h2 id="h-journal">Reading with your can</h2>
           </div>
           {articles.length ? (
