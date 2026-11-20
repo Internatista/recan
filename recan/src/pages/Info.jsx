@@ -15,7 +15,7 @@ export function Story() {
         Fruit flavours, an active life and a can that does not end up in the bin.
       </PageHead>
       <div className="wrap narrow section-tight prose">
-        <Cover cover="all" alt="Four RE:CAN cans side by side" className="article-cover" />
+        <Cover cover="all" alt="RE:CAN cans side by side" className="article-cover" />
         <h2>How the brand started</h2>
         <p>
           RE:CAN started as an answer to oversweetened, industrially produced drinks in single-use packaging. We wanted a

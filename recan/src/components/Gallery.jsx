@@ -44,7 +44,13 @@ export default function Gallery({ product }) {
           </div>
         ) : (
           <div className="gallery-slide">
-            <Scene slug={product.slug} alt={`RE:CAN ${product.name} with fruit: ${product.flavor}`} />
+            {product.visual ? (
+              <div className="gallery-visual">
+                <img src={product.visual} alt={`RE:CAN ${product.name} with fruit: ${product.flavor}`} draggable="false" />
+              </div>
+            ) : (
+              <Scene slug={product.slug} alt={`RE:CAN ${product.name} with fruit: ${product.flavor}`} />
+            )}
           </div>
         )}
         <button type="button" className="gallery-arrow prev" onClick={() => go(index - 1)} aria-label="Previous image">
@@ -67,7 +73,13 @@ export default function Gallery({ product }) {
             aria-label={`Show image ${i + 1}: ${label}`}
             aria-pressed={i === index}
           >
-            {i === 0 ? <img src={product.img} alt="" /> : <Scene slug={product.slug} />}
+            {i === 0 ? (
+              <img src={product.img} alt="" />
+            ) : product.visual ? (
+              <img className="thumb-visual" src={product.visual} alt="" />
+            ) : (
+              <Scene slug={product.slug} />
+            )}
           </button>
         ))}
       </div>

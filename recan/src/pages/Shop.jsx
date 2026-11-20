@@ -10,12 +10,12 @@ import BundleBuilder from '../components/BundleBuilder'
 export function Shop() {
   useSeo({
     title: 'Shop – fruit drinks with electrolytes',
-    description: `Citrus Charge, Watermelon Lime, Tropical and Berry Blast. Fruit drinks with electrolytes for ${money(PRICE)}, free pickup.`,
+    description: `${products.length} RE:CAN flavours, from Citrus Charge to Green Apple Kiwi. Fruit drinks with electrolytes for ${money(PRICE)}, free pickup.`,
   })
   return (
     <>
       <PageHead eyebrow={COLLECTION} title="Shop">
-        Four fruit flavours with electrolytes. {money(PRICE)} each, free pickup.
+        {products.length} fruit flavours with electrolytes. {money(PRICE)} each, free pickup.
       </PageHead>
       <div className="wrap section-tight">
         <ProductGrid />
@@ -41,7 +41,7 @@ export function BundlePage() {
   return (
     <>
       <PageHead eyebrow={`Three-pack · −${BUNDLE_DISCOUNT_PCT}%`} title="Build your three-pack">
-        Choose three different flavours out of four. The {BUNDLE_DISCOUNT_PCT}% discount applies to the pack only, not to cans added separately.
+        Choose three different flavours from our range. The {BUNDLE_DISCOUNT_PCT}% discount applies to the pack only, not to cans added separately.
       </PageHead>
       <div className="wrap section-tight">
         <BundleBuilder />
@@ -83,7 +83,7 @@ export function Product() {
       : { title: 'Product not found', noindex: true },
   )
 
-  if (!p) return <NotFound title="We don't have this product" text="We offer four flavours. You will find them in the shop." />
+  if (!p) return <NotFound title="We don't have this product" text={`We offer ${products.length} flavours. You will find them in the shop.`} />
 
   const add = () => {
     addSingle(p.slug, qty)

@@ -13,6 +13,131 @@ const slice = (rind, flesh, pith = '#fff6e6') => (
 )
 
 const shapes = {
+  grapefruit: slice('#f07a3c', '#f2546a', '#ffe7dc'),
+  bloodorange: slice('#e5672b', '#9e1f3a', '#ffd9c8'),
+  coconut: (
+    <>
+      <path d="M6 54a44 44 0 0 0 88 0z" fill="#6b4226" />
+      <path d="M13 54a37 37 0 0 0 74 0z" fill="#fffaf0" />
+      <ellipse cx="50" cy="54" rx="44" ry="9" fill="#6b4226" />
+      <ellipse cx="50" cy="54" rx="37" ry="6" fill="#f3ece0" />
+    </>
+  ),
+  mint: (
+    <>
+      <path d="M50 92C18 72 14 36 50 8c36 28 32 64 0 84z" fill="#3fa45a" />
+      <path d="M50 88V16M50 40l-16-10M50 40l16-10M50 60l-18-10M50 60l18-10" stroke="#2a7a40" strokeWidth="3" fill="none" />
+    </>
+  ),
+  peach: (
+    <>
+      <circle cx="50" cy="56" r="40" fill="#f6a35c" />
+      <circle cx="38" cy="50" r="26" fill="#f0603f" opacity=".55" />
+      <path d="M50 18c-2 12 0 30 4 52" stroke="#d9773c" strokeWidth="3" fill="none" />
+      <path d="M54 16c8-12 26-14 34-6-10 10-24 12-34 6z" fill="#3c9a3f" />
+    </>
+  ),
+  apricot: (
+    <>
+      <circle cx="50" cy="50" r="44" fill="#f7a640" />
+      <circle cx="50" cy="50" r="36" fill="#ffc45e" />
+      <ellipse cx="50" cy="50" rx="13" ry="17" fill="#8a4b28" />
+    </>
+  ),
+  grape: (
+    <>
+        <circle cx="30" cy="28" r="12" fill="#6b3fa0" stroke="#4e2b7a" strokeWidth="2" />
+        <circle cx="52" cy="26" r="12" fill="#6b3fa0" stroke="#4e2b7a" strokeWidth="2" />
+        <circle cx="72" cy="30" r="12" fill="#6b3fa0" stroke="#4e2b7a" strokeWidth="2" />
+        <circle cx="40" cy="46" r="12" fill="#6b3fa0" stroke="#4e2b7a" strokeWidth="2" />
+        <circle cx="62" cy="46" r="12" fill="#6b3fa0" stroke="#4e2b7a" strokeWidth="2" />
+        <circle cx="50" cy="64" r="12" fill="#6b3fa0" stroke="#4e2b7a" strokeWidth="2" />
+        <circle cx="36" cy="62" r="12" fill="#6b3fa0" stroke="#4e2b7a" strokeWidth="2" />
+        <circle cx="64" cy="62" r="12" fill="#6b3fa0" stroke="#4e2b7a" strokeWidth="2" />
+        <circle cx="50" cy="82" r="12" fill="#6b3fa0" stroke="#4e2b7a" strokeWidth="2" />
+        <circle cx="26" cy="23" r="3" fill="#c6a8f0" opacity=".6" />
+        <circle cx="48" cy="21" r="3" fill="#c6a8f0" opacity=".6" />
+        <circle cx="68" cy="25" r="3" fill="#c6a8f0" opacity=".6" />
+        <circle cx="36" cy="41" r="3" fill="#c6a8f0" opacity=".6" />
+        <circle cx="58" cy="41" r="3" fill="#c6a8f0" opacity=".6" />
+        <circle cx="46" cy="59" r="3" fill="#c6a8f0" opacity=".6" />
+        <circle cx="32" cy="57" r="3" fill="#c6a8f0" opacity=".6" />
+        <circle cx="60" cy="57" r="3" fill="#c6a8f0" opacity=".6" />
+        <circle cx="46" cy="77" r="3" fill="#c6a8f0" opacity=".6" />
+      <path d="M52 16c0-8 4-12 10-14" stroke="#5a3b1c" strokeWidth="4" fill="none" />
+    </>
+  ),
+  blackberry: (
+    <>
+        <circle cx="38" cy="36" r="11" fill="#2a1f3d" stroke="#140f22" strokeWidth="2" />
+        <circle cx="56" cy="32" r="11" fill="#2a1f3d" stroke="#140f22" strokeWidth="2" />
+        <circle cx="70" cy="46" r="11" fill="#2a1f3d" stroke="#140f22" strokeWidth="2" />
+        <circle cx="30" cy="54" r="11" fill="#2a1f3d" stroke="#140f22" strokeWidth="2" />
+        <circle cx="48" cy="52" r="11" fill="#2a1f3d" stroke="#140f22" strokeWidth="2" />
+        <circle cx="64" cy="64" r="11" fill="#2a1f3d" stroke="#140f22" strokeWidth="2" />
+        <circle cx="40" cy="70" r="11" fill="#2a1f3d" stroke="#140f22" strokeWidth="2" />
+        <circle cx="54" cy="82" r="11" fill="#2a1f3d" stroke="#140f22" strokeWidth="2" />
+        <circle cx="34" cy="31" r="2" fill="#8f7fb8" opacity=".6" />
+        <circle cx="52" cy="27" r="2" fill="#8f7fb8" opacity=".6" />
+        <circle cx="66" cy="41" r="2" fill="#8f7fb8" opacity=".6" />
+        <circle cx="26" cy="49" r="2" fill="#8f7fb8" opacity=".6" />
+        <circle cx="44" cy="47" r="2" fill="#8f7fb8" opacity=".6" />
+        <circle cx="60" cy="59" r="2" fill="#8f7fb8" opacity=".6" />
+        <circle cx="36" cy="65" r="2" fill="#8f7fb8" opacity=".6" />
+        <circle cx="50" cy="77" r="2" fill="#8f7fb8" opacity=".6" />
+      <path d="M38 16c6-8 20-8 26 0-8 6-18 6-26 0z" fill="#3c9a3f" />
+    </>
+  ),
+  cherry: (
+    <>
+      <path d="M30 66C34 40 48 22 66 10M68 62C66 40 64 26 66 10" stroke="#5a3b1c" strokeWidth="3.5" fill="none" />
+      <circle cx="30" cy="70" r="20" fill="#c11b3a" />
+      <circle cx="68" cy="66" r="20" fill="#a8122f" />
+      <circle cx="23" cy="63" r="5" fill="#ff8a9a" opacity=".6" />
+      <circle cx="61" cy="59" r="5" fill="#ff8a9a" opacity=".6" />
+    </>
+  ),
+  pomegranate: (
+    <>
+      <circle cx="50" cy="54" r="42" fill="#b3203c" />
+      <circle cx="50" cy="54" r="34" fill="#f6d8c8" />
+        <circle cx="38" cy="42" r="7" fill="#d32f4f" stroke="#a31a37" strokeWidth="2" />
+        <circle cx="52" cy="38" r="7" fill="#d32f4f" stroke="#a31a37" strokeWidth="2" />
+        <circle cx="64" cy="46" r="7" fill="#d32f4f" stroke="#a31a37" strokeWidth="2" />
+        <circle cx="34" cy="58" r="7" fill="#d32f4f" stroke="#a31a37" strokeWidth="2" />
+        <circle cx="48" cy="54" r="7" fill="#d32f4f" stroke="#a31a37" strokeWidth="2" />
+        <circle cx="62" cy="60" r="7" fill="#d32f4f" stroke="#a31a37" strokeWidth="2" />
+        <circle cx="44" cy="70" r="7" fill="#d32f4f" stroke="#a31a37" strokeWidth="2" />
+        <circle cx="58" cy="72" r="7" fill="#d32f4f" stroke="#a31a37" strokeWidth="2" />
+        <circle cx="34" cy="37" r="2" fill="#ffc0cc" opacity=".6" />
+        <circle cx="48" cy="33" r="2" fill="#ffc0cc" opacity=".6" />
+        <circle cx="60" cy="41" r="2" fill="#ffc0cc" opacity=".6" />
+        <circle cx="30" cy="53" r="2" fill="#ffc0cc" opacity=".6" />
+        <circle cx="44" cy="49" r="2" fill="#ffc0cc" opacity=".6" />
+        <circle cx="58" cy="55" r="2" fill="#ffc0cc" opacity=".6" />
+        <circle cx="40" cy="65" r="2" fill="#ffc0cc" opacity=".6" />
+        <circle cx="54" cy="67" r="2" fill="#ffc0cc" opacity=".6" />
+      <path d="M40 14l4 8 6-10 6 10 4-8" fill="#b3203c" />
+    </>
+  ),
+  apple: (
+    <>
+      <path d="M50 26c-26-14-46 6-42 32 4 26 22 40 42 34 20 6 38-8 42-34 4-26-16-46-42-32z" fill="#8fcf4a" />
+      <path d="M22 44c4-10 12-14 18-14" stroke="#c9ef9a" strokeWidth="5" fill="none" strokeLinecap="round" />
+      <path d="M50 26c0-8 2-14 6-18" stroke="#5a3b1c" strokeWidth="4" fill="none" />
+      <path d="M56 14c8-8 22-8 26 0-8 6-18 6-26 0z" fill="#3c9a3f" />
+    </>
+  ),
+  kiwi: (
+    <>
+      <circle cx="50" cy="50" r="46" fill="#8a6a3b" />
+      <circle cx="50" cy="50" r="40" fill="#7cc142" />
+      <circle cx="50" cy="50" r="14" fill="#f3f7d7" />
+      {Array.from({ length: 14 }, (_, i) => (
+        <ellipse key={i} cx="50" cy="28" rx="2" ry="3.5" fill="#1f1a10" transform={`rotate(${i * (360 / 14)} 50 50)`} />
+      ))}
+    </>
+  ),
   orange: slice('#f07c12', '#ffa630'),
   lemon: slice('#f5c518', '#ffe45c'),
   lime: slice('#4f9d2d', '#b5e06a'),

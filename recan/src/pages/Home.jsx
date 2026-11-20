@@ -41,7 +41,7 @@ export default function Home() {
               Second life.
             </h1>
             <p className="hero-lead">
-              RE:CAN makes fruit drinks with electrolytes in a can. Four flavours for an active day and one more idea: the can
+              RE:CAN makes fruit drinks with electrolytes in a can. Ten flavours for an active day and one more idea: the can
               deserves a second life.
             </p>
             <div className="hero-cta">
@@ -84,7 +84,7 @@ export default function Home() {
       <section className="section wrap" aria-labelledby="h-flavours">
         <div className="section-head">
           <p className="eyebrow">RE:CAN Electrolytes</p>
-          <h2 id="h-flavours">Four flavours, one collection</h2>
+          <h2 id="h-flavours">Ten flavours, one collection</h2>
           <p>Every can costs {money(PRICE)}. Pickup is free.</p>
         </div>
         <ProductGrid />
@@ -110,7 +110,7 @@ export default function Home() {
         <div className="section-head">
           <p className="eyebrow">Three-pack · −{BUNDLE_DISCOUNT_PCT}%</p>
           <h2 id="h-bundle">Mix three different flavours</h2>
-          <p>Choose three of the four. The whole pack is {BUNDLE_DISCOUNT_PCT}% off.</p>
+          <p>Choose any three different flavours. The whole pack is {BUNDLE_DISCOUNT_PCT}% off.</p>
         </div>
         <BundleBuilder />
       </section>

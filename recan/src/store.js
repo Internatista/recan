@@ -232,7 +232,7 @@ export const setOrderStatus = (id, status) =>
   ordersStore.set((list) => list.map((o) => (o.id === id ? { ...o, status } : o)))
 
 // ---------- articles ----------
-export const articlesStore = createStore('recan.articles.v3', seedArticles, (v) =>
+export const articlesStore = createStore('recan.articles.v4', seedArticles, (v) =>
   Array.isArray(v) ? v.filter((a) => a && a.slug && a.title) : seedArticles,
 )
 

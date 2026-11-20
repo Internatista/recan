@@ -2,6 +2,18 @@ import citrus from './assets/citrus-charge.webp'
 import watermelon from './assets/watermelon-lime.webp'
 import tropical from './assets/tropical.webp'
 import berry from './assets/berry-blast.webp'
+import coco from './assets/coco-mint-lime.webp'
+import cocoVisual from './assets/coco-mint-lime-visual.webp'
+import grapefruit from './assets/pink-grapefruit.webp'
+import grapefruitVisual from './assets/pink-grapefruit-visual.webp'
+import peach from './assets/peach-apricot.webp'
+import peachVisual from './assets/peach-apricot-visual.webp'
+import grape from './assets/grape-blackberry.webp'
+import grapeVisual from './assets/grape-blackberry-visual.webp'
+import cherry from './assets/cherry-pomegranate.webp'
+import cherryVisual from './assets/cherry-pomegranate-visual.webp'
+import apple from './assets/green-apple-kiwi.webp'
+import appleVisual from './assets/green-apple-kiwi-visual.webp'
 
 // Prices are kept in cents to avoid rounding errors.
 export const PRICE = 420
@@ -86,6 +98,120 @@ export const products = [
     on: '#f5f3ee',
     fruits: ['blueberry', 'raspberry', 'currant'],
   },
+  {
+    slug: 'coco-mint-lime',
+    ingredients:
+      'Water, coconut water from concentrate (10%), lime juice from concentrate (4%), sugar, mint extract, minerals (sodium citrate, potassium citrate, magnesium citrate), acidity regulator: citric acid, natural flavouring, vitamin C, niacin (B3), vitamin B6, vitamin B12.',
+    name: 'Coco Mint Lime',
+    flavor: 'Coconut, lime and mint',
+    character: 'A cool, refreshing combination',
+    short: 'Coconut with lime and a touch of mint. Cool and refreshing.',
+    description:
+      'Coco Mint Lime pairs the soft sweetness of coconut with zesty lime and a cool finish of mint. The most refreshing flavour in the collection, with added vitamins B3, B6 and B12.',
+    moment: 'Great for hot days, long rallies and cooling down after training.',
+    img: coco,
+    visual: cocoVisual,
+    color: '#4fc0bd',
+    alt: '#9edcc4',
+    soft: '#d6f1ef',
+    on: '#1e1e1e',
+    fruits: ['coconut', 'lime', 'mint'],
+  },
+  {
+    slug: 'pink-grapefruit',
+    ingredients:
+      'Water, pink grapefruit juice from concentrate (10%), blood orange juice from concentrate (5%), sugar, minerals (sodium citrate, potassium citrate, magnesium citrate), acidity regulator: citric acid, natural flavouring, vitamin C, niacin (B3), vitamin B6, vitamin B12.',
+    name: 'Pink Grapefruit',
+    flavor: 'Grapefruit and blood orange',
+    character: 'A sharp, zesty citrus taste',
+    short: 'Pink grapefruit with blood orange. Sharp, zesty and a little bitter.',
+    description:
+      'Pink Grapefruit combines tangy grapefruit with the deeper sweetness of blood orange. A sharper citrus flavour than Citrus Charge, with a pleasantly bitter finish and added vitamins B3, B6 and B12.',
+    moment: 'Great after training and whenever you want something less sweet.',
+    img: grapefruit,
+    visual: grapefruitVisual,
+    color: '#f26b5b',
+    alt: '#f7a85c',
+    soft: '#ffdcd5',
+    on: '#1e1e1e',
+    fruits: ['grapefruit', 'bloodorange'],
+  },
+  {
+    slug: 'peach-apricot',
+    ingredients:
+      'Water, peach purée (8%), apricot purée (5%), sugar, minerals (sodium citrate, potassium citrate, magnesium citrate), acidity regulator: citric acid, natural flavouring, vitamin C, niacin (B3), vitamin B6, vitamin B12.',
+    name: 'Peach Apricot',
+    flavor: 'Peach and apricot',
+    character: 'A smooth, mellow fruit taste',
+    short: 'Peach with apricot. Smooth, soft and easy to drink.',
+    description:
+      'Peach Apricot brings together juicy peach and sweet apricot. It is the softest and smoothest flavour in the collection, with added vitamins B3, B6 and B12.',
+    moment: 'Great for long days, lectures and everything in between.',
+    img: peach,
+    visual: peachVisual,
+    color: '#f0916a',
+    alt: '#f6c587',
+    soft: '#ffe3d3',
+    on: '#1e1e1e',
+    fruits: ['peach', 'apricot'],
+  },
+  {
+    slug: 'grape-blackberry',
+    ingredients:
+      'Water, red grape juice from concentrate (10%), blackberry juice from concentrate (5%), sugar, minerals (sodium citrate, potassium citrate, magnesium citrate), acidity regulator: citric acid, natural flavouring, vitamin C, niacin (B3), vitamin B6, vitamin B12.',
+    name: 'Grape Blackberry',
+    flavor: 'Grape and blackberry',
+    character: 'A deep, juicy berry taste',
+    short: 'Grape with blackberry. Deep, juicy and full of flavour.',
+    description:
+      'Grape Blackberry combines sweet red grape with the tangy depth of blackberry. A rich, dark flavour with added vitamins B3, B6 and B12.',
+    moment: 'Great for intense training sessions and evening matches.',
+    img: grape,
+    visual: grapeVisual,
+    color: '#6a3fb8',
+    alt: '#a650b8',
+    soft: '#e7ddf7',
+    on: '#f5f3ee',
+    fruits: ['grape', 'blackberry'],
+  },
+  {
+    slug: 'cherry-pomegranate',
+    ingredients:
+      'Water, sour cherry juice from concentrate (8%), pomegranate juice from concentrate (6%), sugar, minerals (sodium citrate, potassium citrate, magnesium citrate), acidity regulator: citric acid, natural flavouring, vitamin C, niacin (B3), vitamin B6, vitamin B12.',
+    name: 'Cherry Pomegranate',
+    flavor: 'Cherry and pomegranate',
+    character: 'A bold, sweet-and-sour taste',
+    short: 'Cherry with pomegranate. Bold, sweet-and-sour and intense.',
+    description:
+      'Cherry Pomegranate pairs ripe cherry with tart pomegranate. A bold, sweet-and-sour flavour with added vitamins B3, B6 and B12.',
+    moment: 'Great when you need a bold taste for a long day.',
+    img: cherry,
+    visual: cherryVisual,
+    color: '#b8204b',
+    alt: '#f08f8a',
+    soft: '#f8d6de',
+    on: '#f5f3ee',
+    fruits: ['cherry', 'pomegranate'],
+  },
+  {
+    slug: 'green-apple-kiwi',
+    ingredients:
+      'Water, green apple juice from concentrate (10%), kiwi purée (4%), sugar, minerals (sodium citrate, potassium citrate, magnesium citrate), acidity regulator: citric acid, natural flavouring, vitamin C, niacin (B3), vitamin B6, vitamin B12.',
+    name: 'Green Apple Kiwi',
+    flavor: 'Green apple and kiwi',
+    character: 'A crisp, fresh fruit taste',
+    short: 'Green apple with kiwi. Crisp, fresh and slightly tart.',
+    description:
+      'Green Apple Kiwi combines crisp green apple with fresh, slightly tart kiwi. A clean, bright flavour with added vitamins B3, B6 and B12.',
+    moment: 'Great for focused study sessions and morning training.',
+    img: apple,
+    visual: appleVisual,
+    color: '#2faa72',
+    alt: '#a6dfbd',
+    soft: '#d5f0e2',
+    on: '#1e1e1e',
+    fruits: ['apple', 'kiwi'],
+  },
 ]
 
 export const bySlug = (slug) => products.find((p) => p.slug === slug)
@@ -147,7 +273,7 @@ export const seedArticles = [
       'We wanted a drink that tastes of fruit, belongs to an active day and makes you think about what happens to the can afterwards.',
     body: `RE:CAN was born out of a simple frustration. Most drinks we reach for after training or during a break are oversweetened and end up in single-use packaging. So we asked ourselves: can we create a drink where the packaging is not waste at the end, but part of the story from the very beginning?
 
-We started with what we drink ourselves. After training, during breaks, while studying. Most of the time we reach for something fruity and cold. That is why RE:CAN is built on four fruit flavours with electrolytes: Citrus Charge, Watermelon Lime, Tropical and Berry Blast.
+We started with what we drink ourselves. After training, during breaks, while studying. Most of the time we reach for something fruity and cold. That is why RE:CAN is built on ten fruit flavours with electrolytes, from Citrus Charge and Watermelon Lime to Coco Mint Lime and Green Apple Kiwi.
 
 The name is a play on words. RE as in refill, recharge and reuse, CAN as in a can, but also as in "you can". The colon between them is a pause: the moment you take a sip and decide what to do with the can next. That is also where our slogan Good drink. Second life. comes from.
 
@@ -167,7 +293,7 @@ Today you order RE:CAN online and collect it in person. You bring the empty can 
 
 A cold can has its own ritual. You take it out of the fridge, water condenses on the surface, you hear the familiar click. Only then comes the taste. That is why our visuals show droplets and fruit in motion: we wanted to capture exactly that moment before the first sip.
 
-We designed the four flavours to suit different moments. Citrus Charge is direct and fresh. Watermelon Lime is light and summery. Tropical is bold. Berry Blast is darker and more intense. It is not a ranking, more a set of moods.
+We designed our flavours to suit different moments. Citrus Charge is direct and fresh. Watermelon Lime is light and summery. Coco Mint Lime is cool. Berry Blast and Grape Blackberry are darker and more intense. It is not a ranking, more a set of moods.
 
 We believe the end is part of the ritual too. An empty can usually ends up in the bin without anyone noticing. At RE:CAN we want this step to be a conscious one. We explain how it works in our article about refill.
 
