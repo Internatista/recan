@@ -28,6 +28,7 @@ export const COLLECTION = 'RE:CAN Electrolytes'
 export const products = [
   {
     slug: 'citrus-charge',
+    categories: ['citrus'],
     ingredients:
       'Water, orange juice from concentrate (12%), lemon juice from concentrate (4%), sugar, minerals (sodium citrate, potassium citrate, magnesium citrate), acidity regulator: citric acid, natural flavouring, vitamin C.',
     name: 'Citrus Charge',
@@ -46,6 +47,7 @@ export const products = [
   },
   {
     slug: 'watermelon-lime',
+    categories: ['summer', 'fresh'],
     ingredients:
       'Water, watermelon juice from concentrate (12%), lime juice from concentrate (4%), sugar, minerals (sodium citrate, potassium citrate, magnesium citrate), acidity regulator: citric acid, natural flavouring, vitamin C.',
     name: 'Watermelon Lime',
@@ -64,6 +66,7 @@ export const products = [
   },
   {
     slug: 'tropical',
+    categories: ['summer'],
     ingredients:
       'Water, mango purée (8%), pineapple juice from concentrate (5%), passion fruit juice from concentrate (3%), sugar, minerals (sodium citrate, potassium citrate, magnesium citrate), acidity regulator: citric acid, natural flavouring, vitamin C.',
     name: 'Tropical',
@@ -82,6 +85,7 @@ export const products = [
   },
   {
     slug: 'berry-blast',
+    categories: ['berry'],
     ingredients:
       'Water, blueberry juice from concentrate (7%), raspberry juice from concentrate (5%), blackcurrant juice from concentrate (4%), sugar, minerals (sodium citrate, potassium citrate, magnesium citrate), acidity regulator: citric acid, natural flavouring, vitamin C.',
     name: 'Berry Blast',
@@ -100,6 +104,7 @@ export const products = [
   },
   {
     slug: 'coco-mint-lime',
+    categories: ['vitamin', 'summer', 'fresh'],
     ingredients:
       'Water, coconut water from concentrate (10%), lime juice from concentrate (4%), sugar, mint extract, minerals (sodium citrate, potassium citrate, magnesium citrate), acidity regulator: citric acid, natural flavouring, vitamin C, niacin (B3), vitamin B6, vitamin B12.',
     name: 'Coco Mint Lime',
@@ -119,6 +124,7 @@ export const products = [
   },
   {
     slug: 'pink-grapefruit',
+    categories: ['vitamin', 'citrus'],
     ingredients:
       'Water, pink grapefruit juice from concentrate (10%), blood orange juice from concentrate (5%), sugar, minerals (sodium citrate, potassium citrate, magnesium citrate), acidity regulator: citric acid, natural flavouring, vitamin C, niacin (B3), vitamin B6, vitamin B12.',
     name: 'Pink Grapefruit',
@@ -138,6 +144,7 @@ export const products = [
   },
   {
     slug: 'peach-apricot',
+    categories: ['vitamin', 'summer'],
     ingredients:
       'Water, peach purée (8%), apricot purée (5%), sugar, minerals (sodium citrate, potassium citrate, magnesium citrate), acidity regulator: citric acid, natural flavouring, vitamin C, niacin (B3), vitamin B6, vitamin B12.',
     name: 'Peach Apricot',
@@ -157,6 +164,7 @@ export const products = [
   },
   {
     slug: 'grape-blackberry',
+    categories: ['vitamin', 'berry'],
     ingredients:
       'Water, red grape juice from concentrate (10%), blackberry juice from concentrate (5%), sugar, minerals (sodium citrate, potassium citrate, magnesium citrate), acidity regulator: citric acid, natural flavouring, vitamin C, niacin (B3), vitamin B6, vitamin B12.',
     name: 'Grape Blackberry',
@@ -176,6 +184,7 @@ export const products = [
   },
   {
     slug: 'cherry-pomegranate',
+    categories: ['vitamin', 'berry'],
     ingredients:
       'Water, sour cherry juice from concentrate (8%), pomegranate juice from concentrate (6%), sugar, minerals (sodium citrate, potassium citrate, magnesium citrate), acidity regulator: citric acid, natural flavouring, vitamin C, niacin (B3), vitamin B6, vitamin B12.',
     name: 'Cherry Pomegranate',
@@ -195,6 +204,7 @@ export const products = [
   },
   {
     slug: 'green-apple-kiwi',
+    categories: ['vitamin', 'fresh'],
     ingredients:
       'Water, green apple juice from concentrate (10%), kiwi purée (4%), sugar, minerals (sodium citrate, potassium citrate, magnesium citrate), acidity regulator: citric acid, natural flavouring, vitamin C, niacin (B3), vitamin B6, vitamin B12.',
     name: 'Green Apple Kiwi',
@@ -213,6 +223,15 @@ export const products = [
     fruits: ['apple', 'kiwi'],
   },
 ]
+
+export const CATEGORIES = [
+  { id: 'vitamin', label: 'Vitamin', description: 'With added vitamins B3, B6 and B12.' },
+  { id: 'summer', label: 'Summer', description: 'Light, fruity flavours for warm days.' },
+  { id: 'citrus', label: 'Citrus', description: 'Fresh and zesty citrus flavours.' },
+  { id: 'berry', label: 'Berries & dark fruit', description: 'Deeper, more intense fruit flavours.' },
+  { id: 'fresh', label: 'Fresh & crisp', description: 'Cool, clean and refreshing.' },
+]
+export const categoryById = (id) => CATEGORIES.find((c) => c.id === id)
 
 export const bySlug = (slug) => products.find((p) => p.slug === slug)
 

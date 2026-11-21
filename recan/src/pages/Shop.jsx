@@ -1,24 +1,47 @@
 import { useEffect, useState } from 'react'
 import { useSeo } from '../seo'
-import { Link, useNavigate, useParams } from 'react-router-dom'
-import { products, bySlug, nutrition, VOLUME, ALLERGENS, STORAGE, pickupPoint, PRICE, COLLECTION, BUNDLE_DISCOUNT_PCT } from '../data'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { products, bySlug, CATEGORIES, categoryById, nutrition, VOLUME, ALLERGENS, STORAGE, pickupPoint, PRICE, COLLECTION, BUNDLE_DISCOUNT_PCT } from '../data'
 import { addSingle, money } from '../store'
 import { ProductGrid, PageHead, QtyStepper, Steps, refillSteps, addedToast, NotFound } from '../components/ui'
 import Gallery from '../components/Gallery'
 import BundleBuilder from '../components/BundleBuilder'
 
 export function Shop() {
+  const [params, setParams] = useSearchParams()
+  const active = categoryById(params.get('category'))
+  const list = active ? products.filter((p) => p.categories.includes(active.id)) : products
   useSeo({
-    title: 'Shop – fruit drinks with electrolytes',
-    description: `${products.length} RE:CAN flavours, from Citrus Charge to Green Apple Kiwi. Fruit drinks with electrolytes for ${money(PRICE)}, free pickup.`,
+    title: active ? `${active.label} flavours – Shop` : 'Shop – fruit drinks with electrolytes',
+    description: active
+      ? `${active.label} RE:CAN flavours. ${active.description} ${money(PRICE)} each, free pickup.`
+      : `${products.length} RE:CAN flavours, from Citrus Charge to Green Apple Kiwi. Fruit drinks with electrolytes for ${money(PRICE)}, free pickup.`,
   })
+  const choose = (id) => setParams(id ? { category: id } : {}, { replace: true })
   return (
     <>
       <PageHead eyebrow={COLLECTION} title="Shop">
         {products.length} fruit flavours with electrolytes. {money(PRICE)} each, free pickup.
       </PageHead>
       <div className="wrap section-tight">
-        <ProductGrid />
+        <div className="category-bar" role="group" aria-label="Filter by category">
+          <button type="button" aria-pressed={!active} className={!active ? 'is-active' : ''} onClick={() => choose(null)}>
+            All <span>{products.length}</span>
+          </button>
+          {CATEGORIES.map((c) => {
+            const n = products.filter((p) => p.categories.includes(c.id)).length
+            const on = active?.id === c.id
+            return (
+              <button key={c.id} type="button" aria-pressed={on} className={on ? 'is-active' : ''} onClick={() => choose(c.id)}>
+                {c.label} <span>{n}</span>
+              </button>
+            )
+          })}
+        </div>
+        <p className="category-note" aria-live="polite">
+          {active ? `${active.description} ${list.length} flavours.` : `All ${products.length} flavours.`}
+        </p>
+        <ProductGrid list={list} />
         <div className="promo">
           <div>
             <h2>Can't decide?</h2>
@@ -104,6 +127,13 @@ export function Product() {
             <p className="eyebrow">{COLLECTION}</p>
             <h1>{p.name}</h1>
             <p className="product-flavor">{p.flavor}</p>
+            <p className="product-cats">
+              {p.categories.map((id) => (
+                <Link key={id} to={`/shop?category=${id}`} className="cat-tag">
+                  {categoryById(id).label}
+                </Link>
+              ))}
+            </p>
             <p className="product-price">
               {money(PRICE)} <small>/ can · {VOLUME}</small>
             </p>

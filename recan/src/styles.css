@@ -2097,3 +2097,49 @@ legend {
 .cover-all {
   gap: 0;
 }
+
+/* product categories */
+.category-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.category-bar button {
+  min-height: 44px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  font-weight: 700;
+}
+.category-bar button span {
+  font-size: 0.8rem;
+  opacity: 0.6;
+  margin-left: 2px;
+}
+.category-bar button.is-active {
+  background: var(--matcha);
+  border-color: var(--matcha);
+  color: var(--cream);
+}
+.category-note {
+  color: var(--muted);
+  font-size: 0.92rem;
+  margin-bottom: 18px;
+}
+.product-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 12px;
+}
+.cat-tag {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1.5px solid var(--ink);
+  text-decoration: none;
+  background: var(--soft);
+}
