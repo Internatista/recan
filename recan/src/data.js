@@ -28,9 +28,9 @@ export const COLLECTION = 'RE:CAN Electrolytes'
 export const products = [
   {
     slug: 'citrus-charge',
-    categories: ['citrus'],
+    categories: ['vitamin', 'citrus'],
     ingredients:
-      'Water, orange juice from concentrate (12%), lemon juice from concentrate (4%), sugar, minerals (sodium citrate, potassium citrate, magnesium citrate), acidity regulator: citric acid, natural flavouring, vitamin C.',
+      'Water, orange juice from concentrate (12%), lemon juice from concentrate (4%), sugar, minerals (sodium citrate, potassium citrate, magnesium citrate), acidity regulator: citric acid, natural flavouring, vitamin C, niacin (B3), vitamin B6, vitamin B12.',
     name: 'Citrus Charge',
     flavor: 'Orange and lemon',
     character: 'A fresh citrus taste',
@@ -47,9 +47,9 @@ export const products = [
   },
   {
     slug: 'watermelon-lime',
-    categories: ['summer', 'fresh'],
+    categories: ['vitamin', 'summer', 'fresh'],
     ingredients:
-      'Water, watermelon juice from concentrate (12%), lime juice from concentrate (4%), sugar, minerals (sodium citrate, potassium citrate, magnesium citrate), acidity regulator: citric acid, natural flavouring, vitamin C.',
+      'Water, watermelon juice from concentrate (12%), lime juice from concentrate (4%), sugar, minerals (sodium citrate, potassium citrate, magnesium citrate), acidity regulator: citric acid, natural flavouring, vitamin C, niacin (B3), vitamin B6, vitamin B12.',
     name: 'Watermelon Lime',
     flavor: 'Watermelon and lime',
     character: 'A light summer combination',
@@ -66,9 +66,9 @@ export const products = [
   },
   {
     slug: 'tropical',
-    categories: ['summer'],
+    categories: ['vitamin', 'summer'],
     ingredients:
-      'Water, mango purée (8%), pineapple juice from concentrate (5%), passion fruit juice from concentrate (3%), sugar, minerals (sodium citrate, potassium citrate, magnesium citrate), acidity regulator: citric acid, natural flavouring, vitamin C.',
+      'Water, mango purée (8%), pineapple juice from concentrate (5%), passion fruit juice from concentrate (3%), sugar, minerals (sodium citrate, potassium citrate, magnesium citrate), acidity regulator: citric acid, natural flavouring, vitamin C, niacin (B3), vitamin B6, vitamin B12.',
     name: 'Tropical',
     flavor: 'Mango, passion fruit and pineapple',
     character: 'A bold tropical fruit taste',
@@ -85,9 +85,9 @@ export const products = [
   },
   {
     slug: 'berry-blast',
-    categories: ['berry'],
+    categories: ['vitamin', 'berry'],
     ingredients:
-      'Water, blueberry juice from concentrate (7%), raspberry juice from concentrate (5%), blackcurrant juice from concentrate (4%), sugar, minerals (sodium citrate, potassium citrate, magnesium citrate), acidity regulator: citric acid, natural flavouring, vitamin C.',
+      'Water, blueberry juice from concentrate (7%), raspberry juice from concentrate (5%), blackcurrant juice from concentrate (4%), sugar, minerals (sodium citrate, potassium citrate, magnesium citrate), acidity regulator: citric acid, natural flavouring, vitamin C, niacin (B3), vitamin B6, vitamin B12.',
     name: 'Berry Blast',
     flavor: 'Blueberry, raspberry and blackcurrant',
     character: 'An intense mix of forest berries',
@@ -225,7 +225,7 @@ export const products = [
 ]
 
 export const CATEGORIES = [
-  { id: 'vitamin', label: 'Vitamin', description: 'With added vitamins B3, B6 and B12.' },
+  { id: 'vitamin', label: 'Vitamin', description: 'Every RE:CAN flavour contains vitamins B3, B6 and B12.' },
   { id: 'summer', label: 'Summer', description: 'Light, fruity flavours for warm days.' },
   { id: 'citrus', label: 'Citrus', description: 'Fresh and zesty citrus flavours.' },
   { id: 'berry', label: 'Berries & dark fruit', description: 'Deeper, more intense fruit flavours.' },
@@ -245,6 +245,9 @@ export const nutrition = [
   { label: 'Salt', per100: '0.12 g', perCan: '0.60 g' },
   { label: 'Potassium', per100: '30 mg', perCan: '150 mg' },
   { label: 'Magnesium', per100: '12 mg', perCan: '60 mg' },
+  { label: 'Niacin (B3)', per100: '1.6 mg (10% RI)', perCan: '8 mg (50% RI)' },
+  { label: 'Vitamin B6', per100: '0.14 mg (10% RI)', perCan: '0.7 mg (50% RI)' },
+  { label: 'Vitamin B12', per100: '0.25 µg (10% RI)', perCan: '1.25 µg (50% RI)' },
 ]
 export const ALLERGENS = 'Contains no allergens under Regulation (EU) No 1169/2011.'
 export const STORAGE = 'Store in a cool, dry place. Once opened, consume within 24 hours.'

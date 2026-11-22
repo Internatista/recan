@@ -286,8 +286,15 @@ export function dismissToast() {
 }
 
 // ---------- formatting ----------
+// Prices are stored in EUR cents; CZK is shown converted at a fixed rate.
+export const EUR_CZK = 25
+export const CURRENCIES = ['EUR', 'CZK']
+export const currencyStore = createStore('recan.currency.v1', 'EUR', (v) => (CURRENCIES.includes(v) ? v : 'EUR'))
+export const setCurrency = (c) => currencyStore.set(c)
 const eur = new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR' })
-export const money = (cents) => eur.format(cents / 100)
+const czk = new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'CZK', minimumFractionDigits: 0, maximumFractionDigits: 0 })
+export const money = (cents) =>
+  currencyStore.get() === 'CZK' ? czk.format(Math.round((cents / 100) * EUR_CZK)) : eur.format(cents / 100)
 export const formatDate = (iso) => {
   const d = new Date(iso.length === 10 ? `${iso}T12:00:00` : iso)
   return Number.isNaN(d.getTime()) ? iso : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })

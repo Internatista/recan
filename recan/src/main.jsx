@@ -14,6 +14,7 @@ import { Cart, Checkout, OrderConfirmation } from './pages/Cart'
 import { Blog, Article } from './pages/Blog'
 import { Story, Refill } from './pages/Info'
 import Admin from './pages/Admin'
+import { useStore, currencyStore } from './store'
 
 function ScrollManager() {
   const { pathname } = useLocation()
@@ -38,6 +39,8 @@ function AppRedirect() {
 }
 
 function App() {
+  // re-render the whole site when the currency changes
+  useStore(currencyStore)
   return (
     <BrowserRouter>
       <ScrollManager />

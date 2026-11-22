@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { products, pickupPoint, MAX_QTY, PRICE, BUNDLE_DISCOUNT_PCT } from '../data'
-import { useStore, cartStore, cartTotals, toastStore, dismissToast, addSingle, toast, money, formatDate } from '../store'
+import { useStore, cartStore, cartTotals, toastStore, dismissToast, addSingle, toast, money, formatDate, currencyStore, setCurrency, CURRENCIES, EUR_CZK } from '../store'
 import { Cover } from './Visuals'
 import { useSeo } from '../seo'
 import logoDark from '../assets/logo-dark.png'
@@ -17,6 +17,19 @@ const nav = [
 
 export function Logo({ light = false }) {
   return <img className="logo" src={light ? logoLight : logoDark} alt="RE:CAN" width="640" height="150" />
+}
+
+export function CurrencySwitch() {
+  const current = useStore(currencyStore)
+  return (
+    <div className="currency-switch" role="group" aria-label="Currency">
+      {CURRENCIES.map((c) => (
+        <button key={c} type="button" aria-pressed={current === c} className={current === c ? 'is-active' : ''} onClick={() => setCurrency(c)}>
+          {c}
+        </button>
+      ))}
+    </div>
+  )
 }
 
 export function Header() {
@@ -41,6 +54,7 @@ export function Header() {
           ))}
         </nav>
         <div className="header-actions">
+          <CurrencySwitch />
           <Link to="/cart" className="cart-link" aria-label={`Cart, cans: ${cans}`}>
             <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
               <path d="M7 7V6a5 5 0 0 1 10 0v1h3l-1.2 13.2a2 2 0 0 1-2 1.8H7.2a2 2 0 0 1-2-1.8L4 7h3zm2 0h6V6a3 3 0 0 0-6 0v1z" fill="currentColor" />
@@ -97,7 +111,7 @@ export function Footer() {
         </div>
       </div>
       <div className="wrap footer-note">
-        © 2026 RE:CAN. Good drink. Second life.
+        © 2026 RE:CAN. Good drink. Second life. Prices in CZK are converted at 1 EUR = {EUR_CZK} CZK.
       </div>
     </footer>
   )

@@ -2143,3 +2143,46 @@ legend {
   text-decoration: none;
   background: var(--soft);
 }
+
+/* currency switch */
+.currency-switch {
+  display: inline-flex;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  padding: 2px;
+  background: #fff;
+}
+.currency-switch button {
+  border: 0;
+  background: transparent;
+  font-weight: 700;
+  font-size: 0.8rem;
+  min-height: 36px;
+  min-width: 42px;
+  padding: 0 8px;
+  border-radius: 999px;
+}
+.currency-switch button.is-active {
+  background: var(--ink);
+  color: var(--cream);
+}
+@media (max-width: 420px) {
+  .currency-switch button {
+    min-width: 36px;
+    padding: 0 5px;
+    font-size: 0.75rem;
+  }
+  .header-row {
+    gap: 8px;
+  }
+}
+.cart-link svg {
+  flex: none;
+}
+.logo-link {
+  min-width: 0;
+}
+.logo-link .logo {
+  max-width: 100%;
+  object-fit: contain;
+}

@@ -185,7 +185,7 @@ export function Product() {
             <h2 id="pd-info">About the product</h2>
             <p>
               {p.name} is part of the {COLLECTION} collection. {p.character}: {p.flavor.toLowerCase()}. A still fruit drink
-              with electrolytes in a {VOLUME} can.
+              with electrolytes and vitamins B3, B6 and B12 in a {VOLUME} can.
             </p>
             <p>Best served chilled. {STORAGE}</p>
           </section>

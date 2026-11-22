@@ -27,6 +27,11 @@ export function Story() {
           because we take our drinks to training, to school and outdoors. And thinking about packaging, because the best
           packaging is the one that does not need to be made again.
         </p>
+        <h2>What's inside</h2>
+        <p>
+          Every RE:CAN flavour is a still fruit drink with electrolytes (sodium, potassium and magnesium) and vitamins B3, B6
+          and B12. You will find the full ingredient list and nutrition values on each product page.
+        </p>
         <h2>What the name means</h2>
         <p>
           <b>RE</b> is the prefix of three words from the label: refill, recharge, reuse. <b>CAN</b> is the can, but also
